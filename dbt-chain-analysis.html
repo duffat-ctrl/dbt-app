@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DBT 連鎖分析｜行動分析スキル</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Noto Sans JP', sans-serif; background: #F7F9FA; color: #2A4A55; }
+  #app { max-width: 480px; margin: 0 auto; min-height: 100vh; }
+
+  header {
+    background: #fff; border-bottom: 1px solid #E0ECEF;
+    padding: 15px 20px 13px; position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  header h1 { font-family: 'Noto Serif JP', serif; font-size: 17px; color: #1A3A45; font-weight: 700; }
+  .module-badge {
+    font-size: 11px; color: #2D6A7F; font-weight: 700;
+    background: #EAF4F8; padding: 2px 8px; border-radius: 20px; border: 1px solid #B0CCD8;
+  }
+
+  /* 共通ボタン */
+  .btn-primary {
+    background: #2D6A7F; color: #fff; border: none; border-radius: 10px;
+    padding: 10px 20px; font-size: 14px; font-weight: 700; cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif; transition: background 0.15s;
+  }
+  .btn-primary:disabled { opacity: 0.4; cursor: default; }
+  .btn-primary.saved { background: #5AA87A; }
+  .btn-ghost {
+    background: #fff; color: #2D6A7F; border: 1.5px solid #2D6A7F;
+    border-radius: 10px; padding: 10px 20px; font-size: 14px; font-weight: 600;
+    cursor: pointer; font-family: 'Noto Sans JP', sans-serif;
+  }
+  .back-btn {
+    background: none; border: none; color: #2D6A7F; font-size: 14px; cursor: pointer;
+    display: flex; align-items: center; gap: 6px; padding: 16px 20px;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+  .section-label {
+    display: block; font-size: 11px; font-weight: 700; color: #7A9BAA;
+    letter-spacing: 0.08em; margin-bottom: 6px;
+  }
+  .hint-text { font-size: 12px; color: #9AABBC; margin-bottom: 8px; line-height: 1.6; }
+  textarea, input[type=text], input[type=date] {
+    width: 100%; border-radius: 10px; border: 1.5px solid #D0DFE5;
+    padding: 10px 12px; font-size: 14px; color: #2A4A55; line-height: 1.7;
+    font-family: 'Noto Sans JP', sans-serif; background: #FAFCFD; outline: none;
+    transition: border-color 0.15s;
+  }
+  textarea { resize: vertical; }
+  textarea:focus, input:focus { border-color: #2D6A7F; }
+  input[type=date] { width: auto; }
+
+  /* ビュー制御 */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* 一覧 */
+  #view-list { padding: 16px 16px 80px; }
+  .list-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding: 0 4px; }
+  .list-header h2 { font-family: 'Noto Serif JP', serif; font-size: 18px; color: #1A3A45; }
+  .record-card {
+    display: block; width: 100%; text-align: left; background: #fff;
+    border: 1px solid #D8EAEF; border-radius: 14px; padding: 14px 16px;
+    margin-bottom: 10px; cursor: pointer; font-family: 'Noto Sans JP', sans-serif;
+    box-shadow: 0 1px 4px rgba(45,106,127,0.07); transition: all 0.15s;
+  }
+  .record-card:hover { box-shadow: 0 4px 14px rgba(45,106,127,0.13); transform: translateY(-1px); }
+  .record-meta { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px; color: #7A9BAA; }
+  .record-title { font-family: 'Noto Serif JP', serif; font-size: 15px; font-weight: 700; color: #1A3A45; margin-bottom: 8px; }
+  .tag-row { display: flex; gap: 4px; flex-wrap: wrap; }
+  .empty-state { padding: 60px 20px; text-align: center; }
+  .empty-icon { font-size: 48px; margin-bottom: 16px; }
+  .empty-text { color: #7A9BAA; font-size: 15px; line-height: 1.7; margin-bottom: 24px; }
+
+  /* ステップナビ */
+  .step-nav {
+    display: flex; background: #fff; border-bottom: 1px solid #E0ECEF;
+    padding: 10px 16px; overflow-x: auto; position: sticky; top: 57px; z-index: 9;
+  }
+  .step-btn {
+    flex: 1; border: none; background: none; padding: 5px 2px; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 52px;
+  }
+  .step-circle {
+    width: 22px; height: 22px; border-radius: 50%; font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; color: #fff;
+    background: #D0DFE5;
+  }
+  .step-circle.active { background: #2D6A7F; }
+  .step-circle.done { background: #5A9E7A; }
+  .step-name { font-size: 9px; color: #9AABBC; white-space: nowrap; }
+  .step-name.active { color: #2D6A7F; font-weight: 700; }
+
+  /* フォーム共通 */
+  .form-body { padding: 20px; padding-bottom: 80px; }
+  .form-section { margin-bottom: 20px; }
+  .form-nav { display: flex; gap: 10px; margin-top: 24px; }
+
+  /* タイプタグ */
+  .type-tag {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    padding: 2px 8px; border-radius: 20px; letter-spacing: 0.02em; white-space: nowrap;
+  }
+  .type-tag.sm { font-size: 10px; padding: 1px 6px; }
+
+  /* リンクカード */
+  .link-card {
+    display: flex; align-items: flex-start; gap: 8px; margin-bottom: 6px;
+  }
+  .link-drag-handle {
+    cursor: grab; color: #B0C8D0; font-size: 16px; padding-top: 12px;
+    user-select: none; flex-shrink: 0;
+  }
+  .link-inner {
+    flex: 1; border-radius: 10px; padding: 10px 12px; border: 1.5px solid transparent;
+  }
+  .link-remove {
+    width: 28px; height: 28px; border-radius: 6px; border: 1px solid #D0DFE5;
+    background: #F7F9FA; font-size: 14px; cursor: pointer; color: #C04040;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 8px;
+  }
+  .drag-hint { font-size: 11px; color: #B0C8D0; margin: 4px 0 0; text-align: center; }
+
+  /* タイプ選択ボタン */
+  .type-btn {
+    border: 1.5px solid #D0DFE5; background: #fff; color: #7A9BAA;
+    border-radius: 20px; padding: 5px 12px; font-size: 12px; font-weight: 600;
+    cursor: pointer; transition: all 0.15s; font-family: 'Noto Sans JP', sans-serif;
+  }
+  .add-box {
+    background: #F7F9FA; border: 1.5px dashed #B0CCD8; border-radius: 12px; padding: 14px;
+  }
+  .type-btns { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+
+  /* 連鎖ビジュアライザー */
+  .chain-node {
+    width: 100%; border-radius: 12px; padding: 12px 14px; border: 2px solid;
+  }
+  .chain-node-label { font-size: 11px; font-weight: 700; letter-spacing: 0.04em; margin-bottom: 4px; display: block; }
+  .chain-node-text { font-size: 14px; color: #2A4A55; line-height: 1.65; white-space: pre-wrap; }
+  .chain-connector { width: 2px; height: 18px; margin: 0 auto; opacity: 0.5;
+    background: linear-gradient(to bottom, #C0D8E0, #2D6A7F); }
+  .solution-badge {
+    margin-top: 8px; padding: 8px 10px; background: #F0F8F0;
+    border-radius: 8px; border-left: 3px solid #5A9E7A;
+  }
+  .skill-chip {
+    display: inline-block; font-size: 11px; padding: 1px 8px; border-radius: 20px;
+    background: #DCF0E4; color: #2A6A40; margin: 2px 2px 2px 0;
+  }
+
+  /* 解決法ステップ（リンク解決法エディタ） */
+  #modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(10,30,40,0.5); z-index: 100;
+    align-items: flex-end; justify-content: center;
+  }
+  #modal-overlay.active { display: flex; }
+  #modal-sheet {
+    width: 100%; max-width: 480px; background: #fff;
+    border-radius: 20px 20px 0 0; max-height: 85vh;
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  .modal-header { padding: 16px 20px 12px; border-bottom: 1px solid #E0ECEF; flex-shrink: 0; }
+  .modal-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .modal-header h3 { font-family: 'Noto Serif JP', serif; font-size: 16px; color: #1A3A45; }
+  .modal-close { background: none; border: none; color: #9AABBC; font-size: 20px; cursor: pointer; padding: 0; }
+  .modal-substep-nav { display: flex; }
+  .substep-tab {
+    flex: 1; text-align: center; font-size: 11px; font-weight: 600; padding-bottom: 6px;
+    border-bottom: 2px solid #E0ECEF; color: #C0D0D8; cursor: default;
+  }
+  .substep-tab.active { color: #2D6A7F; border-bottom-color: #2D6A7F; }
+  .substep-tab.done { color: #5A9E7A; border-bottom-color: #5A9E7A; cursor: pointer; }
+  .modal-body { overflow-y: auto; flex: 1; padding: 16px 20px; }
+  .modal-footer { padding: 12px 20px 20px; border-top: 1px solid #E0ECEF; flex-shrink: 0; display: flex; gap: 8px; }
+
+  /* モジュール選択ボタン */
+  .module-btn {
+    display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+    background: #F7F9FA; border: 2px solid #E0ECEF; border-radius: 12px;
+    padding: 12px 14px; margin-bottom: 8px; cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif; transition: all 0.15s;
+  }
+  .module-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .module-btn-title { font-size: 14px; font-weight: 700; color: #1A3A45; margin-bottom: 2px; }
+  .module-btn-sub { font-size: 11px; color: #7A9BAA; }
+  .skip-btn {
+    display: block; width: 100%; text-align: left; background: #F7F9FA;
+    border: 1.5px dashed #C0D0D8; border-radius: 12px; padding: 10px 14px;
+    cursor: pointer; font-family: 'Noto Sans JP', sans-serif; font-size: 13px; color: #7A9BAA;
+  }
+
+  /* スキル選択チェックボックス */
+  .skill-check-btn {
+    display: flex; align-items: center; gap: 10px; width: 100%; text-align: left;
+    background: #F7F9FA; border: 1.5px solid #E0ECEF; border-radius: 10px;
+    padding: 10px 12px; margin-bottom: 6px; cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif; font-size: 13px; color: #4A6A75;
+    transition: all 0.15s;
+  }
+  .skill-checkbox {
+    width: 18px; height: 18px; border-radius: 4px; flex-shrink: 0;
+    background: #fff; border: 2px solid #C0D0D8;
+    display: flex; align-items: center; justify-content: center; font-size: 11px; color: #fff;
+  }
+
+  /* 解決法編集用リンクボタン */
+  .solution-edit-btn {
+    display: block; width: 100%; text-align: left; background: #fff;
+    border: 1.5px solid #D0DFE5; border-radius: 12px; padding: 12px 14px; margin-bottom: 8px;
+    cursor: pointer; font-family: 'Noto Sans JP', sans-serif; transition: all 0.15s;
+  }
+  .solution-edit-btn.has-solution { background: #F6FCF8; border-color: #5A9E7A; }
+
+  /* 詳細表示 */
+  #view-detail { padding: 0 0 80px; }
+  .detail-section { padding: 0 20px; }
+  .vuln-box { background: #FBF4EE; border: 1px solid #E0C8A0; border-radius: 10px; padding: 10px 12px; margin-top: 6px; }
+  .vuln-text { font-size: 13px; color: #5A3A10; line-height: 1.7; }
+  .notes-box { background: #EAF4F8; border-radius: 10px; padding: 10px 12px; margin-top: 6px; }
+  .notes-text { font-size: 13px; color: #2A4A55; line-height: 1.7; }
+  .detail-header { display: flex; align-items: center; gap: 8px; padding: 14px 20px; border-bottom: 1px solid #E0ECEF; background: #fff; }
+  .detail-edit-btn {
+    background: none; border: 1px solid #2D6A7F; color: #2D6A7F;
+    border-radius: 8px; padding: 5px 12px; font-size: 12px; cursor: pointer;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>連鎖分析</h1>
+    <span class="module-badge">行動分析スキル</span>
+  </header>
+
+  <!-- 一覧 -->
+  <div id="view-list" class="view active">
+    <div class="list-header">
+      <h2>記録一覧</h2>
+      <button class="btn-primary" style="padding:7px 16px;font-size:13px;" onclick="showForm(null)">+ 新規</button>
+    </div>
+    <div id="records-container"></div>
+  </div>
+
+  <!-- フォーム -->
+  <div id="view-form" class="view">
+    <div class="step-nav" id="step-nav"></div>
+    <div class="form-body" id="form-body"></div>
+  </div>
+
+  <!-- 詳細 -->
+  <div id="view-detail" class="view">
+    <div class="detail-header">
+      <button class="back-btn" style="padding:0;" onclick="showView('list')">← 一覧</button>
+      <span id="detail-date" style="flex:1;font-size:13px;color:#7A9BAA;text-align:center;"></span>
+      <button class="detail-edit-btn" id="detail-edit-btn">編集</button>
+    </div>
+    <div style="padding:20px 20px 80px;" id="detail-content"></div>
+  </div>
+
+  <!-- 解決法モーダル -->
+  <div id="modal-overlay" onclick="handleModalOverlayClick(event)">
+    <div id="modal-sheet">
+      <div class="modal-header">
+        <div class="modal-header-row">
+          <h3>解決法を考える</h3>
+          <button class="modal-close" onclick="closeModal()">×</button>
+        </div>
+        <div id="modal-link-preview" style="margin-bottom:12px;"></div>
+        <div class="modal-substep-nav" id="modal-substep-nav"></div>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-footer">
+        <button class="btn-ghost" style="flex:1;" onclick="closeModal()">キャンセル</button>
+        <button class="btn-primary" id="modal-save-btn" style="flex:2;" onclick="saveModalLink()">保存</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── データ定数 ───────────────────────────────────────────────
+const SKILL_MODULES = [
+  { id:"mindfulness", label:"マインドフルネス", color:"#2D6A7F", bg:"#EAF4F8",
+    skills:["賢明な心（ワイズマインド）","観察する","描写する","参加する","判断しない","ワン・マインドフル","効果的に"] },
+  { id:"distress", label:"苦悩耐性", color:"#7A6AAA", bg:"#F4F2FB",
+    skills:["STOPスキル","TIP（体温・激しい運動・一定間隔の呼吸・ペア筋弛緩）","気を逸らす（ACCEPTS）","自分をなだめる（五感）","今この瞬間を改善する（IMPROVE）","良い点と悪い点（Pros & Cons）","徹底的な受容","心の向きを変える","ウィリングネス","微笑と受け入れる手","現在の思考のマインドフルネス"] },
+  { id:"emotion", label:"情動調節", color:"#C16A7F", bg:"#FBEEEF",
+    skills:["チェック・ザ・ファクト","オポジット・アクション","事前対処（Cope Ahead）","PLEASE（身体ケア）","楽しい出来事を増やす","現在の情動のマインドフルネス"] },
+  { id:"interpersonal", label:"効果的な対人関係", color:"#5A9E7A", bg:"#EEF7F2",
+    skills:["DEAR MAN（効果的な目標達成）","GIVE（効果的な人間関係）","FAST（効果的な自尊心）","他者のマインドフルネス","バリデーション"] },
+];
+const MODULE_MAP = Object.fromEntries(SKILL_MODULES.map(m => [m.id, m]));
+
+const SKILL_EXAMPLES = {
+  "賢明な心（ワイズマインド）":"少し立ち止まり、感情と事実の両方を聞いてみる。「今私が本当に必要としていることは何か」と自分に問いかける。",
+  "観察する":"判断せず、胸の締め付けや手の震えをただ「ある」と気づく。感覚が来ては去るのをそのまま見る。",
+  "描写する":"「私はひどい人間だ」ではなく「怒りの感情が出てきた」「涙が出ている」と事実として言葉にする。",
+  "参加する":"今やっていること（呼吸、歩くこと）に意識を完全に向け、評価をやめて没頭する。",
+  "判断しない":"「最悪だ」という言葉に気づいたら「そう感じている」と書き換え、判断の言葉を使わずに描写する。",
+  "ワン・マインドフル":"今この瞬間の一つのことだけに集中する。スマホを置き、目の前の呼吸だけに注意を向ける。",
+  "効果的に":"「正しいことを証明する」より「今の目標を達成する」ために何ができるかを考えて行動する。",
+  "STOPスキル":"Stop（止まる）→ Take a step back（一歩引く）→ Observe（観察する）→ Proceed mindfully（マインドフルに進む）の順に実行する。",
+  "TIP（体温・激しい運動・一定間隔の呼吸・ペア筋弛緩）":"冷水で顔を冷やす（体温）、その場で20回ジャンプする（激しい運動）、4秒吸って4秒吐くを繰り返す（一定間隔の呼吸）。",
+  "気を逸らす（ACCEPTS）":"活動・貢献・比較・感情・突き離す・考え・感覚のどれかで気を逸らす。例：好きな音楽をかけながら部屋を掃除する。",
+  "自分をなだめる（五感）":"温かい飲み物を手に持つ（触覚）、好きな香りのものを嗅ぐ（嗅覚）、心地よい音楽を聴く（聴覚）など五感を使って自分をなだめる。",
+  "今この瞬間を改善する（IMPROVE）":"意味を見つける・祈る・リラクセーション・一つのことに集中する・小休止を取る・励ます・リラックスできることを想像するのどれかを使う。",
+  "良い点と悪い点（Pros & Cons）":"問題行動をする場合としない場合それぞれの良い点と悪い点を書き出し、比較して判断する。",
+  "徹底的な受容":"「こうであるべきだった」という考えに気づき、「これが現実だ」と完全に受け入れる。抵抗をやめ、現実と戦うことをやめる。",
+  "心の向きを変える":"徹底的な受容に向けて心の向きを変える選択をする。「受け入れないことを選択しない」と意図的に決める。",
+  "ウィリングネス":"状況に対してオープンになり、今この瞬間できることをする。頑固に抵抗するのをやめ、柔軟に対応する。",
+  "微笑と受け入れる手":"唇の端を少し上げて微笑み、手のひらを上に向けて膝の上に置く。身体の姿勢から受け入れの状態を作る。",
+  "現在の思考のマインドフルネス":"浮かんでくる考えを「考えが出てきた」と観察し、その考えに乗っ取られず、ただ流れていくのを見る。",
+  "チェック・ザ・ファクト":"感情を引き起こしている解釈や思い込みを特定し、実際の事実と照らし合わせて確認する。「本当にそうか？」と問いかける。",
+  "オポジット・アクション":"今の感情が促す行動の反対をする。恐れを感じたら近づく、悲しみを感じたら活動する、怒りを感じたら優しくする。",
+  "事前対処（Cope Ahead）":"次に似た状況が来たときのために、どう対処するかを具体的にイメージして練習しておく。",
+  "PLEASE（身体ケア）":"身体疾患の治療・薬の管理・バランスの取れた食事・睡眠・適度な運動のどれかに取り組む。",
+  "楽しい出来事を増やす":"短期的に楽しい活動を一つ計画し実行する。長期的に価値ある目標に向けた小さな一歩を踏み出す。",
+  "現在の情動のマインドフルネス":"今感じている情動を判断せず観察する。「恥辱感がある」とただ気づき、情動の波が過ぎるのを待つ。",
+  "DEAR MAN（効果的な目標達成）":"Describe（描写）→ Express（表現）→ Assert（主張）→ Reinforce（強化）→ Mindful（マインドフル）→ Appear confident（自信ある態度）→ Negotiate（交渉）の順で伝える。",
+  "GIVE（効果的な人間関係）":"Gentle（穏やか）・Interested（興味を持つ）・Validate（バリデート）・Easy manner（気楽な態度）を意識して関わる。",
+  "FAST（効果的な自尊心）":"Fair（公平）・Apologies（謝りすぎない）・Stick to values（価値観を守る）・Truthful（正直）を守って行動する。",
+  "他者のマインドフルネス":"相手の気持ちや状況に注意を向け、判断せずに観察する。相手が今どんな状態にあるかを意識する。",
+  "バリデーション":"相手の感情や反応が理解できることを言葉で伝える。「そう感じるのは当然だと思う」「あなたの気持ちはわかる」と伝える。",
+};
+
+const LINK_TYPES = [
+  {id:"thought", label:"思考",     color:"#4A7FC1", bg:"#EEF4FB"},
+  {id:"emotion", label:"情動",     color:"#C16A7F", bg:"#FBEEEF"},
+  {id:"action",  label:"行動",     color:"#5A9E7A", bg:"#EEF7F2"},
+  {id:"body",    label:"身体感覚", color:"#B07A30", bg:"#FBF4EE"},
+  {id:"event",   label:"出来事",   color:"#7A6AAA", bg:"#F4F2FB"},
+];
+const TYPE_MAP = Object.fromEntries(LINK_TYPES.map(t => [t.id, t]));
+
+const STEPS = ["問題行動","刺激・脆弱性","連鎖の要素","解決法","確認"];
+
+// ── アプリ状態 ───────────────────────────────────────────────
+let records = [];
+let currentStep = 0;
+let currentData = null;
+let currentLinkType = "thought";
+let dragSrcIdx = null;
+
+// モーダル状態
+let modalLink = null;
+let modalSubStep = 0;
+let modalSelectedModule = null;
+let modalSelectedSkills = [];
+let modalFreeText = "";
+
+// ── ユーティリティ ───────────────────────────────────────────
+function uid() { return Math.random().toString(36).slice(2,8); }
+function formatDate(iso) {
+  return new Date(iso).toLocaleDateString("ja-JP",{year:"numeric",month:"long",day:"numeric"});
+}
+function esc(str) {
+  return String(str||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+function newData() {
+  return { id:uid(), date:new Date().toISOString().slice(0,10),
+    targetBehavior:"", consequencesShort:"", consequencesLong:"",
+    promptingEvent:"", vulnerability:"", links:[], solutionNotes:"" };
+}
+
+// ── ビュー切り替え ───────────────────────────────────────────
+function showView(name) {
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  document.getElementById("view-"+name).classList.add("active");
+}
+
+// ── 一覧レンダリング ─────────────────────────────────────────
+function renderList() {
+  const c = document.getElementById("records-container");
+  if (records.length === 0) {
+    c.innerHTML = `<div class="empty-state">
+      <div class="empty-icon">🔗</div>
+      <p class="empty-text">まだ記録がありません。<br>新しい分析を始めましょう。</p>
+      <button class="btn-primary" style="padding:12px 32px;" onclick="showForm(null)">+ 新しい連鎖分析</button>
+    </div>`;
+  } else {
+    c.innerHTML = records.map(rec => {
+      const types = [...new Set(rec.links.map(l=>l.type))];
+      const tags = types.map(t => typeTagHTML(t, true)).join("");
+      return `<button class="record-card" onclick="showDetail('${rec.id}')">
+        <div class="record-meta"><span>${formatDate(rec.date)}</span><span>連鎖 ${rec.links.length}件</span></div>
+        <div class="record-title">${esc(rec.targetBehavior)||"（問題行動未入力）"}</div>
+        <div class="tag-row">${tags}</div>
+      </button>`;
+    }).join("");
+  }
+}
+
+// ── タグHTML ────────────────────────────────────────────────
+function typeTagHTML(typeId, small) {
+  const t = TYPE_MAP[typeId] || TYPE_MAP.thought;
+  const cls = small ? "type-tag sm" : "type-tag";
+  return `<span class="${cls}" style="background:${t.bg};color:${t.color};border:1px solid ${t.color}44;">${t.label}</span>`;
+}
+
+// ── フォーム表示 ─────────────────────────────────────────────
+function showForm(rec) {
+  currentData = rec ? JSON.parse(JSON.stringify(rec)) : newData();
+  currentStep = 0;
+  showView("form");
+  renderForm();
+}
+
+function renderStepNav() {
+  document.getElementById("step-nav").innerHTML = STEPS.map((s,i) => {
+    const cls = i < currentStep ? "done" : i === currentStep ? "active" : "";
+    return `<button class="step-btn" onclick="goStep(${i})">
+      <div class="step-circle ${cls}">${i < currentStep ? "✓" : i+1}</div>
+      <span class="step-name ${i===currentStep?'active':''}">${s}</span>
+    </button>`;
+  }).join("");
+}
+
+function goStep(i) { currentStep = i; renderForm(); }
+
+function renderForm() {
+  renderStepNav();
+  const body = document.getElementById("form-body");
+
+  if (currentStep === 0) {
+    body.innerHTML = `
+      <h3 style="font-family:'Noto Serif JP',serif;color:#1A3A45;font-size:17px;margin-bottom:8px;">問題行動（標的行動）</h3>
+      <p class="hint-text">まず「何が起きたか」を明確にします。</p>
+      <div class="form-section">
+        <span class="section-label">記録日</span>
+        <input type="date" id="f-date" value="${esc(currentData.date)}" style="width:auto;">
+      </div>
+      <div class="form-section">
+        <span class="section-label">問題行動</span>
+        <textarea id="f-target" rows="3" placeholder="例：自傷した、過量服薬した、暴言を言った">${esc(currentData.targetBehavior)}</textarea>
+      </div>
+      <div class="form-section">
+        <span class="section-label">結果（短期）</span>
+        <p class="hint-text">問題行動の直後に何が起きたか</p>
+        <textarea id="f-cshort" rows="2" placeholder="例：一時的に気持ちが楽になった。その場を離れることができた。">${esc(currentData.consequencesShort)}</textarea>
+      </div>
+      <div class="form-section">
+        <span class="section-label">結果（長期）</span>
+        <p class="hint-text">その後、時間が経ってから起きたこと・感じたこと</p>
+        <textarea id="f-clong" rows="2" placeholder="例：翌日、自己嫌悪が強くなった。治療者との関係が悪化した。">${esc(currentData.consequencesLong)}</textarea>
+      </div>
+      <div class="form-nav">
+        <button class="btn-primary" style="flex:1;" onclick="saveStep0();goStep(1);">次へ →</button>
+      </div>`;
+
+  } else if (currentStep === 1) {
+    body.innerHTML = `
+      <h3 style="font-family:'Noto Serif JP',serif;color:#1A3A45;font-size:17px;margin-bottom:8px;">刺激となる出来事・脆弱性因子</h3>
+      <div class="form-section">
+        <span class="section-label">刺激となる出来事（プロンプティング・イベント）</span>
+        <p class="hint-text">その出来事がなかったら問題行動に繋がらなかったと思える一番大きな出来事を記載してください</p>
+        <textarea id="f-prompt" rows="3" placeholder="例：母親から「また失敗した」と言われた">${esc(currentData.promptingEvent)}</textarea>
+      </div>
+      <div class="form-section">
+        <span class="section-label">脆弱性因子</span>
+        <p class="hint-text">刺激となる出来事が起こる前にあった、ストレスに対して打たれ弱くさせた状況を記載してください（例：睡眠不足、体調不良、服薬状況、最近のストレスなど）</p>
+        <textarea id="f-vuln" rows="3" placeholder="例：3日間ほとんど眠れていなかった。薬を2日飲み忘れた。">${esc(currentData.vulnerability)}</textarea>
+      </div>
+      <div class="form-nav">
+        <button class="btn-ghost" style="flex:1;" onclick="goStep(0)">← 前へ</button>
+        <button class="btn-primary" style="flex:2;" onclick="saveStep1();goStep(2);">次へ →</button>
+      </div>`;
+
+  } else if (currentStep === 2) {
+    body.innerHTML = `
+      <h3 style="font-family:'Noto Serif JP',serif;color:#1A3A45;font-size:17px;margin-bottom:8px;">連鎖の要素（リンク）</h3>
+      <p class="hint-text">刺激となる出来事から問題行動に至るまでの要素を追加してください。⠿ をドラッグして順番を変えられます。</p>
+      <div id="link-list"></div>
+      <div class="add-box">
+        <span class="section-label">要素を追加</span>
+        <div class="type-btns" id="type-btns"></div>
+        <textarea id="new-link-text" rows="2" placeholder="例：「どうせ私はダメだ」という考えが浮かんだ"></textarea>
+        <button class="btn-primary" style="margin-top:10px;" onclick="addLink()">+ 追加</button>
+      </div>
+      <div class="form-nav">
+        <button class="btn-ghost" style="flex:1;" onclick="goStep(1)">← 前へ</button>
+        <button class="btn-primary" style="flex:2;" onclick="goStep(3)">次へ →</button>
+      </div>`;
+    renderLinkList();
+    renderTypeBtns();
+
+  } else if (currentStep === 3) {
+    body.innerHTML = `
+      <h3 style="font-family:'Noto Serif JP',serif;color:#1A3A45;font-size:17px;margin-bottom:8px;">解決法分析</h3>
+      <p class="hint-text">連鎖のどのリンクでどのスキルを使えたか考えます。各リンクをタップしてスキルを選んでください。</p>
+      <div id="solution-link-list"></div>
+      <div class="form-section" style="margin-top:20px;">
+        <span class="section-label">全体の振り返りメモ</span>
+        <textarea id="f-notes" rows="3" placeholder="今回の連鎖から気づいたこと、次回に向けて試したいことなど">${esc(currentData.solutionNotes)}</textarea>
+      </div>
+      <div class="form-nav">
+        <button class="btn-ghost" style="flex:1;" onclick="goStep(2)">← 前へ</button>
+        <button class="btn-primary" style="flex:2;" onclick="saveStep3();goStep(4)">次へ →</button>
+      </div>`;
+    renderSolutionList();
+
+  } else if (currentStep === 4) {
+    body.innerHTML = `
+      <h3 style="font-family:'Noto Serif JP',serif;color:#1A3A45;font-size:17px;margin-bottom:4px;">連鎖分析の確認</h3>
+      <p style="font-size:12px;color:#9AABBC;margin-bottom:16px;">${formatDate(currentData.date)}</p>
+      ${currentData.vulnerability ? `<div class="form-section">
+        <span class="section-label">脆弱性因子</span>
+        <div class="vuln-box"><p class="vuln-text">${esc(currentData.vulnerability)}</p></div>
+      </div>` : ""}
+      <div id="chain-viz"></div>
+      ${currentData.solutionNotes ? `<div class="form-section" style="margin-top:16px;">
+        <span class="section-label">振り返りメモ</span>
+        <div class="notes-box"><p class="notes-text">${esc(currentData.solutionNotes)}</p></div>
+      </div>` : ""}
+      <button class="btn-primary" style="width:100%;margin-top:24px;padding:14px;font-size:15px;" onclick="saveRecord()">この分析を保存</button>
+      <button class="btn-ghost" style="width:100%;margin-top:10px;" onclick="goStep(3)">← 前へ戻る</button>`;
+    renderChainViz("chain-viz", currentData, true);
+  }
+}
+
+// ── フォーム保存ヘルパー ─────────────────────────────────────
+function saveStep0() {
+  currentData.date = document.getElementById("f-date")?.value || currentData.date;
+  currentData.targetBehavior = document.getElementById("f-target")?.value || "";
+  currentData.consequencesShort = document.getElementById("f-cshort")?.value || "";
+  currentData.consequencesLong = document.getElementById("f-clong")?.value || "";
+}
+function saveStep1() {
+  currentData.promptingEvent = document.getElementById("f-prompt")?.value || "";
+  currentData.vulnerability = document.getElementById("f-vuln")?.value || "";
+}
+function saveStep3() {
+  currentData.solutionNotes = document.getElementById("f-notes")?.value || "";
+}
+
+// ── リンク追加 ───────────────────────────────────────────────
+function renderTypeBtns() {
+  document.getElementById("type-btns").innerHTML = LINK_TYPES.map(t => {
+    const sel = currentLinkType === t.id;
+    return `<button class="type-btn" onclick="setLinkType('${t.id}')"
+      style="${sel ? `background:${t.bg};color:${t.color};border-color:${t.color};` : ''}">${t.label}</button>`;
+  }).join("");
+}
+function setLinkType(id) { currentLinkType = id; renderTypeBtns(); }
+function addLink() {
+  const txt = document.getElementById("new-link-text")?.value?.trim();
+  if (!txt) return;
+  currentData.links.push({ id:uid(), type:currentLinkType, text:txt, solutionSkills:[], solution:"", solutionModule:null });
+  document.getElementById("new-link-text").value = "";
+  renderLinkList();
+}
+function removeLink(id) {
+  currentData.links = currentData.links.filter(l => l.id !== id);
+  renderLinkList();
+}
+
+// ── リンクリスト（ドラッグ対応） ────────────────────────────
+function renderLinkList() {
+  const el = document.getElementById("link-list");
+  if (!el) return;
+  if (currentData.links.length === 0) { el.innerHTML = ""; return; }
+  el.innerHTML = currentData.links.map((link,i) => {
+    const t = TYPE_MAP[link.type] || TYPE_MAP.thought;
+    return `<div class="link-card" draggable="true" data-idx="${i}"
+        ondragstart="dragStart(event,${i})" ondragover="dragOver(event,${i})"
+        ondrop="dragDrop(event,${i})" ondragend="dragEnd()">
+      <span class="link-drag-handle">⠿</span>
+      <div class="link-inner" style="background:${t.bg};border-color:${t.color}66;">
+        <div style="margin-bottom:4px;">${typeTagHTML(link.type, true)}</div>
+        <p style="font-size:13px;color:#2A4A55;line-height:1.6;margin:0;">${esc(link.text)}</p>
+      </div>
+      <button class="link-remove" onclick="removeLink('${link.id}')">×</button>
+    </div>`;
+  }).join("") + `<p class="drag-hint">⠿ をドラッグして順番を入れ替えられます</p>`;
+}
+
+function dragStart(e, idx) { dragSrcIdx = idx; e.dataTransfer.effectAllowed = "move"; }
+function dragOver(e, idx) { e.preventDefault(); e.dataTransfer.dropEffect = "move"; }
+function dragDrop(e, idx) {
+  e.preventDefault();
+  if (dragSrcIdx === null || dragSrcIdx === idx) return;
+  const links = [...currentData.links];
+  const [moved] = links.splice(dragSrcIdx, 1);
+  links.splice(idx, 0, moved);
+  currentData.links = links;
+  dragSrcIdx = null;
+  renderLinkList();
+}
+function dragEnd() { dragSrcIdx = null; }
+
+// ── 解決法リスト ─────────────────────────────────────────────
+function renderSolutionList() {
+  const el = document.getElementById("solution-link-list");
+  if (!el) return;
+  if (currentData.links.length === 0) {
+    el.innerHTML = `<p style="color:#AAC;font-size:14px;">連鎖の要素がまだ入力されていません</p>`; return;
+  }
+  el.innerHTML = currentData.links.map(link => {
+    const t = TYPE_MAP[link.type] || TYPE_MAP.thought;
+    const has = link.solutionSkills?.length > 0 || link.solution;
+    const chips = (link.solutionSkills||[]).map(s => `<span class="skill-chip">${esc(s)}</span>`).join("");
+    const sol = link.solution ? `<p style="margin:4px 0 0;font-size:12px;color:#3A6A50;">💡 ${esc(link.solution)}</p>` : "";
+    const empty = `<p style="font-size:12px;color:#BBC;margin:0;">タップして解決法を追加</p>`;
+    return `<button class="solution-edit-btn ${has?'has-solution':''}" onclick="openModal('${link.id}')">
+      <div style="margin-bottom:4px;">${typeTagHTML(link.type, true)}</div>
+      <p style="font-size:13px;color:#2A4A55;line-height:1.6;margin:0 0 6px;">${esc(link.text)}</p>
+      ${has ? `<div>${chips}${sol}</div>` : empty}
+    </button>`;
+  }).join("");
+}
+
+// ── 連鎖ビジュアライザー ─────────────────────────────────────
+function renderChainViz(containerId, data, editable) {
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const nodes = [
+    {kind:"prompting", label:"刺激となる出来事", text:data.promptingEvent, borderColor:"#7A6AAA", bgColor:"#F4F2FB", textColor:"#7A6AAA"},
+    ...data.links.map(l => ({kind:"link", ...l})),
+    {kind:"target", label:"問題行動", text:data.targetBehavior, borderColor:"#C04040", bgColor:"#FEF0F0", textColor:"#C04040"},
+    {kind:"cshort", label:"結果（短期）", text:data.consequencesShort, borderColor:"#2D6A7F", bgColor:"#EAF4F8", textColor:"#2D6A7F"},
+    {kind:"clong", label:"結果（長期）", text:data.consequencesLong, borderColor:"#1A3A45", bgColor:"#E8F0F4", textColor:"#1A3A45"},
+  ];
+  el.innerHTML = nodes.map((node,i) => {
+    let bg, border, labelColor;
+    if (node.kind === "link") {
+      const t = TYPE_MAP[node.type] || TYPE_MAP.thought;
+      bg = t.bg; border = t.color; labelColor = t.color;
+    } else {
+      bg = node.bgColor; border = node.borderColor; labelColor = node.textColor;
+    }
+    const label = node.kind === "link"
+      ? typeTagHTML(node.type, true)
+      : `<span style="font-size:11px;font-weight:700;letter-spacing:0.04em;color:${labelColor};">${node.label}</span>`;
+    const hint = (node.kind === "link" && editable)
+      ? `<span style="margin-left:auto;font-size:11px;color:#AAC;">タップして解決法</span>` : "";
+    const skills = node.kind === "link" && (node.solutionSkills?.length > 0 || node.solution) ? `
+      <div style="margin-top:8px;padding:8px 10px;background:#F0F8F0;border-radius:8px;border-left:3px solid #5A9E7A;">
+        ${(node.solutionSkills||[]).map(s=>`<span class="skill-chip">${esc(s)}</span>`).join("")}
+        ${node.solution ? `<p style="margin:${node.solutionSkills?.length>0?'6px':'0'} 0 0;font-size:12px;color:#3A6A50;line-height:1.6;">💡 ${esc(node.solution)}</p>`:""}
+      </div>` : "";
+    const onclick = (node.kind === "link" && editable) ? `onclick="openModalFromViz('${node.id}')"` : "";
+    const cursor = (node.kind === "link" && editable) ? "pointer" : "default";
+    return `
+      <div class="chain-node" style="background:${bg};border-color:${border};cursor:${cursor};" ${onclick}>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">${label}${hint}</div>
+        <p class="chain-node-text">${esc(node.text)||'<span style="color:#BBC;">（未入力）</span>'}</p>
+        ${skills}
+      </div>
+      ${i < nodes.length-1 ? '<div class="chain-connector"></div>' : ""}`;
+  }).join("");
+}
+function openModalFromViz(id) {
+  const link = currentData.links.find(l => l.id === id);
+  if (link) openModal(id);
+}
+
+// ── 記録保存 ─────────────────────────────────────────────────
+function saveRecord() {
+  const idx = records.findIndex(r => r.id === currentData.id);
+  if (idx >= 0) records[idx] = currentData;
+  else records.unshift(currentData);
+  renderList();
+  showView("list");
+}
+
+// ── 詳細表示 ─────────────────────────────────────────────────
+function showDetail(id) {
+  const rec = records.find(r => r.id === id);
+  if (!rec) return;
+  document.getElementById("detail-date").textContent = formatDate(rec.date);
+  document.getElementById("detail-edit-btn").onclick = () => showForm(rec);
+  const c = document.getElementById("detail-content");
+  c.innerHTML = `
+    ${rec.vulnerability ? `<div style="margin-bottom:18px;">
+      <span class="section-label">脆弱性因子</span>
+      <div class="vuln-box"><p class="vuln-text">${esc(rec.vulnerability)}</p></div>
+    </div>` : ""}
+    <span class="section-label">連鎖の流れ</span>
+    <div id="detail-chain" style="margin-top:6px;"></div>
+    ${rec.solutionNotes ? `<div style="margin-top:20px;">
+      <span class="section-label">振り返りメモ</span>
+      <div class="notes-box"><p class="notes-text">${esc(rec.solutionNotes)}</p></div>
+    </div>` : ""}`;
+  showView("detail");
+  renderChainViz("detail-chain", rec, false);
+}
+
+// ── モーダル ─────────────────────────────────────────────────
+function openModal(linkId) {
+  const link = currentData.links.find(l => l.id === linkId);
+  if (!link) return;
+  modalLink = JSON.parse(JSON.stringify(link));
+  modalSubStep = 0;
+  modalSelectedModule = link.solutionModule || null;
+  modalSelectedSkills = [...(link.solutionSkills||[])];
+  modalFreeText = link.solution || "";
+  renderModalLinkPreview();
+  renderModalSubStepNav();
+  renderModalBody();
+  document.getElementById("modal-overlay").classList.add("active");
+}
+
+function closeModal() {
+  document.getElementById("modal-overlay").classList.remove("active");
+  modalLink = null;
+}
+
+function handleModalOverlayClick(e) {
+  if (e.target === document.getElementById("modal-overlay")) closeModal();
+}
+
+function renderModalLinkPreview() {
+  const t = TYPE_MAP[modalLink.type] || TYPE_MAP.thought;
+  document.getElementById("modal-link-preview").innerHTML = `
+    <div style="background:${t.bg};border:1.5px solid ${t.color}66;border-radius:10px;padding:8px 12px;">
+      ${typeTagHTML(modalLink.type, true)}
+      <p style="margin:4px 0 0;font-size:13px;color:#2A4A55;line-height:1.5;">${esc(modalLink.text)}</p>
+    </div>`;
+}
+
+function renderModalSubStepNav() {
+  const labels = ["モジュール","スキル","具体策"];
+  document.getElementById("modal-substep-nav").innerHTML = labels.map((s,i) => {
+    const cls = i === modalSubStep ? "active" : i < modalSubStep ? "done" : "";
+    return `<div class="substep-tab ${cls}" onclick="goModalSubStep(${i})">${i < modalSubStep ? "✓ " : ""}${s}</div>`;
+  }).join("");
+}
+
+function goModalSubStep(i) {
+  if (i <= modalSubStep) { modalSubStep = i; renderModalSubStepNav(); renderModalBody(); }
+}
+
+function renderModalBody() {
+  const body = document.getElementById("modal-body");
+  if (modalSubStep === 0) {
+    body.innerHTML = `
+      <p style="font-size:13px;color:#5A7A8A;margin:0 0 14px;line-height:1.7;">このリンクで使えそうなスキルはどのモジュールにありますか？</p>
+      ${SKILL_MODULES.map(mod => `
+        <button class="module-btn" onclick="selectModule('${mod.id}')"
+          style="${modalSelectedModule===mod.id ? `background:${mod.bg};border-color:${mod.color};` : ''}">
+          <div class="module-dot" style="background:${mod.color};"></div>
+          <div>
+            <div class="module-btn-title">${esc(mod.label)}</div>
+            <div class="module-btn-sub">${esc(mod.skills.slice(0,3).join("・"))}…</div>
+          </div>
+        </button>`).join("")}
+      <button class="skip-btn" onclick="modalSubStep=2;renderModalSubStepNav();renderModalBody();">スキルを使わず → 具体策を直接書く</button>`;
+  } else if (modalSubStep === 1) {
+    const mod = MODULE_MAP[modalSelectedModule];
+    body.innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+        <div class="module-dot" style="background:${mod.color};"></div>
+        <span style="font-size:14px;font-weight:700;color:${mod.color};">${esc(mod.label)}</span>
+        <button onclick="modalSubStep=0;renderModalSubStepNav();renderModalBody();" style="margin-left:auto;background:none;border:none;color:#9AABBC;font-size:12px;cursor:pointer;">← 変更</button>
+      </div>
+      <p style="font-size:13px;color:#5A7A8A;margin:0 0 12px;line-height:1.7;">使えそうなスキルを選んでください（複数可）</p>
+      ${mod.skills.map(skill => {
+        const sel = modalSelectedSkills.includes(skill);
+        return `<button class="skill-check-btn" onclick="toggleModalSkill('${esc(skill)}')"
+          style="${sel ? `background:${mod.bg};border-color:${mod.color};color:#1A3A45;` : ''}">
+          <span class="skill-checkbox" style="${sel ? `background:${mod.color};border-color:${mod.color};` : ''}">
+            ${sel ? "✓" : ""}
+          </span>${esc(skill)}</button>`;
+      }).join("")}
+      <button class="btn-primary" style="width:100%;margin-top:12px;${modalSelectedSkills.length===0?'opacity:0.4;':''}"
+        ${modalSelectedSkills.length===0?'disabled':''} onclick="modalSubStep=2;renderModalSubStepNav();renderModalBody();">
+        次へ：具体策を書く →</button>`;
+  } else {
+    const mod = modalSelectedModule ? MODULE_MAP[modalSelectedModule] : null;
+    const chips = modalSelectedSkills.map(s =>
+      `<span style="font-size:12px;padding:3px 10px;border-radius:20px;background:${mod?.bg||'#EEF4FB'};color:${mod?.color||'#4A7FC1'};border:1px solid ${mod?.color||'#4A7FC1'}44;">${esc(s)}</span>`
+    ).join("");
+    const examples = modalSelectedSkills.filter(s => SKILL_EXAMPLES[s]).map(s =>
+      `<div style="margin-bottom:10px;">
+        <span style="font-size:11px;font-weight:700;color:${mod?.color||'#4A7FC1'};display:block;margin-bottom:2px;">▸ ${esc(s)}</span>
+        <p style="margin:0;font-size:12px;color:#4A6A75;line-height:1.7;">${esc(SKILL_EXAMPLES[s])}</p>
+      </div>`).join("");
+    const placeholder = modalSelectedSkills.length > 0
+      ? modalSelectedSkills.map(s => `・${s}：`).join("\n")
+      : "具体的な対処法を書いてください";
+    body.innerHTML = `
+      ${modalSelectedSkills.length > 0 ? `<div style="margin-bottom:14px;">
+        <span class="section-label">選んだスキル</span>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">${chips}</div>
+      </div>` : ""}
+      ${examples ? `<div style="margin-bottom:16px;">
+        <span class="section-label">スキルの使い方の例</span>
+        <div style="background:#F7F9FA;border:1px solid #D8EAEF;border-radius:10px;padding:10px 14px;">${examples}</div>
+      </div>` : ""}
+      <span class="section-label">具体的にどうする？</span>
+      <p class="hint-text">この場面で実際にどう行動するか、自分の言葉で書きましょう</p>
+      <textarea id="modal-freetext" rows="${Math.max(4, modalSelectedSkills.length+2)}"
+        placeholder="${esc(placeholder)}">${esc(modalFreeText)}</textarea>`;
+    setTimeout(() => {
+      const ta = document.getElementById("modal-freetext");
+      if (ta) ta.addEventListener("input", e => { modalFreeText = e.target.value; });
+    }, 0);
+  }
+}
+
+function selectModule(id) {
+  modalSelectedModule = id;
+  modalSelectedSkills = [];
+  modalSubStep = 1;
+  renderModalSubStepNav();
+  renderModalBody();
+}
+
+function toggleModalSkill(skill) {
+  const idx = modalSelectedSkills.indexOf(skill);
+  if (idx >= 0) modalSelectedSkills.splice(idx, 1);
+  else modalSelectedSkills.push(skill);
+  renderModalBody();
+}
+
+function saveModalLink() {
+  modalFreeText = document.getElementById("modal-freetext")?.value || modalFreeText;
+  const idx = currentData.links.findIndex(l => l.id === modalLink.id);
+  if (idx >= 0) {
+    currentData.links[idx] = { ...currentData.links[idx],
+      solutionModule: modalSelectedModule,
+      solutionSkills: [...modalSelectedSkills],
+      solution: modalFreeText,
+    };
+  }
+  closeModal();
+  renderSolutionList();
+}
+
+// ── 初期化 ───────────────────────────────────────────────────
+renderList();
+</script>
+</body>
+</html>
