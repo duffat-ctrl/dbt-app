@@ -245,7 +245,7 @@
         <div style="background:#F0F4FF;border:1px solid #B8C4F0;border-radius:12px;padding:14px 16px;">
           <div class="learn-map-label" style="color:#4A5BA8;">「How」スキル — どのように行うか</div>
           <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">
-            <div class="learn-map-sub" onclick="showDetail('nonjudgmental')">判断しない</div>
+            <div class="learn-map-sub" onclick="showDetail('nonjudgmental')">判断しないで</div>
             <div class="learn-map-sub" onclick="showDetail('one-mindfully')">ワン・マインドフルに</div>
             <div class="learn-map-sub" onclick="showDetail('effectively')">効果的に</div>
           </div>
@@ -335,8 +335,8 @@ const SKILLS = [
   { id:"observe", name:"観察する", subtitle:"ただ気づく", category:"「Whatスキル」", description:"言葉を使わずに体験をそのまま観察する。評価せず、変えようとせず、ただ「気づいて」いる。", howto:["今この瞬間、体の感覚に注意を向ける","「これは良い／悪い」と判断しない","感覚が来ては去るのをただ見ている","意識が流れてもそれも観察する"], when:"感情が高ぶったとき、自動的な反応を止めたいとき", intensity:1 },
   { id:"describe", name:"描写する", subtitle:"言葉にのせる", category:"「Whatスキル」", description:"体験に事実として言葉をあてがう。解釈や判断を混ぜずに、見えている・感じていることだけを描写する。", howto:["「私は～と考えている」「胸が締め付けられる感じがある」のように体験を言語化","「彼は最悪だ」→「彼が約束を破ったと私は感じている」と書き換える","解釈と事実を分けることを練習する"], when:"感情と思考が混乱しているとき、ダイアリーカードを書くとき", intensity:1 },
   { id:"participate", name:"参加する", subtitle:"完全に入り込む", category:"「Whatスキル」", description:"自意識を手放して、今やっていることに完全に没頭する。観察者にならず、体験そのものになる。", howto:["今やっている活動（歩く、話す、料理する）に意識を全部向ける","「うまくやろう」という評価をやめる","活動が終わるまで、ほかのことを考えない"], when:"慢性的な空虚感があるとき、楽しさを感じにくいとき", intensity:2 },
-  { id:"nonjudgmental", name:"判断しない", subtitle:"評価をはずす", category:"「Howスキル」", description:"「良い・悪い・すべき」という判断の言葉を使わない。結果や事実として描写する。", howto:["「最悪だ」→「私が望まない結果になった」","「私はダメだ」→「今日は3回ミスをした」","判断に気づいたらそれも判断せず「判断が出てきた」とただ観察する"], when:"自己批判が強いとき、他者への怒りが激しいとき", intensity:2 },
-  { id:"one-mindfully", name:"ワン・マインドフル", subtitle:"一度に一つのことに", category:"「Howスキル」", description:"今この瞬間やっていることだけに集中する。マルチタスクをやめる。", howto:["今やっていることを一つ決める","ほかのことが頭に浮かんだら「後で」と置いておく","タスクが終わるまで次に移らない"], when:"思考が散乱しているとき、圧倒されているとき", intensity:1 },
+  { id:"nonjudgmental", name:"判断しないで", subtitle:"評価をはずす", category:"「Howスキル」", description:"「良い・悪い・すべき」という判断の言葉を使わない。結果や事実として描写する。", howto:["「最悪だ」→「私が望まない結果になった」","「私はダメだ」→「今日は3回ミスをした」","判断に気づいたらそれも判断せず「判断が出てきた」とただ観察する"], when:"自己批判が強いとき、他者への怒りが激しいとき", intensity:2 },
+  { id:"one-mindfully", name:"ワン・マインドフルに", subtitle:"一度に一つのことに", category:"「Howスキル」", description:"今この瞬間やっていることだけに集中する。マルチタスクをやめる。", howto:["今やっていることを一つ決める","ほかのことが頭に浮かんだら「後で」と置いておく","タスクが終わるまで次に移らない"], when:"思考が散乱しているとき、圧倒されているとき", intensity:1 },
   { id:"effectively", name:"効果的に", subtitle:"目標のために動く", category:"「Howスキル」", description:"「正しさ」より「うまくいくこと」を選ぶ。感情に任せて行動するのではなく、自分の目標に合った行動をとる。", howto:["今の状況で本当に達成したいことを明確にする","「正しいことを証明する」ではなく「目標を達成する」を優先する","効果のない行動に気づいたら切り替える"], when:"対立する状況、治療への抵抗感があるとき", intensity:3 },
 ];
 const EMOTIONS = [
@@ -347,9 +347,10 @@ const EMOTIONS = [
   {label:"幸福",emoji:"😊",color:"#F5C842"},{label:"愛",emoji:"🥰",color:"#E88AA0"},
 ];
 const WORKSHEETS = [
-  { id:"observe-practice", title:"観察スキルの練習", skill:"観察する", description:"感覚や感情をありのままに記録するワークシートです。", fields:[{id:"situation",label:"状況",type:"textarea",placeholder:"どこで、何が起きていましたか？"},{id:"body",label:"体の感覚（判断なし）",type:"textarea",placeholder:"例：胸が締め付けられる感じ、手が震えている"},{id:"thoughts",label:"浮かんだ考え（事実として）",type:"textarea",placeholder:"例：「失敗した」という考えが浮かんだ"},{id:"urge",label:"行動したくなった衝動",type:"textarea",placeholder:"例：その場を離れたかった"},{id:"noticed",label:"気づいたこと",type:"textarea",placeholder:"観察してみてどうでしたか？"}]},
   { id:"wisemind-practice", title:"賢明な心（ワイズマインド）を探す", skill:"賢明な心（ワイズマインド）", description:"感情的な心と合理的な心の声を分けて聴き、賢明な心に近づくワーク。", fields:[{id:"situation",label:"状況・問題",type:"textarea",placeholder:"今直面していること"},{id:"emotion-mind",label:"感情的な心が言っていること",type:"textarea",placeholder:"感情的な心はどうしたいと言っている？"},{id:"reason-mind",label:"合理的な心が言っていること",type:"textarea",placeholder:"事実・論理から見るとどう見える？"},{id:"wise-mind",label:"賢明な心（ワイズマインド）の声",type:"textarea",placeholder:"深いところで「正しい」と感じることは？"},{id:"action",label:"次のステップ",type:"text",placeholder:"賢明な心に従うとしたら？"}]},
-  { id:"nonjudge-practice", title:"判断を事実に書き換える", skill:"判断しない", description:"評価の言葉を事実の描写に変える練習です。", fields:[{id:"judgment1",label:"判断的な表現①",type:"text",placeholder:"例：私はダメな人間だ"},{id:"fact1",label:"↓ 事実として書き換える",type:"text",placeholder:"例：今日は3回約束を守れなかった"},{id:"judgment2",label:"判断的な表現②",type:"text",placeholder:""},{id:"fact2",label:"↓ 事実として書き換える",type:"text",placeholder:""},{id:"judgment3",label:"判断的な表現③",type:"text",placeholder:""},{id:"fact3",label:"↓ 事実として書き換える",type:"text",placeholder:""},{id:"reflection",label:"書き換えてみて気づいたこと",type:"textarea",placeholder:""}]},
+  { id:"observe-nonjudge-practice", title:"観察・描写・判断しないでの練習", skill:"観察する・描写する・判断しないで", description:"五感で気づいたことを観察し、判断の言葉を事実の描写に置き換える練習です。", fields:[{id:"situation",label:"状況",type:"textarea",placeholder:"どこで、何が起きていましたか？"},{id:"observed",label:"観察したこと（五感で気づいたこと）",type:"textarea",placeholder:"例：見えたもの、聞こえたもの、体の感覚など"},{id:"judgment",label:"浮かんだ判断的な考え",type:"textarea",placeholder:"例：「私はダメな人間だ」「最悪だ」など"},{id:"fact",label:"↓ 事実として描写する",type:"textarea",placeholder:"例：今日は3回約束を守れなかった"},{id:"urge",label:"行動したくなった衝動",type:"textarea",placeholder:"例：その場を離れたかった"},{id:"noticed",label:"気づいたこと",type:"textarea",placeholder:"観察・描写してみてどうでしたか？"}]},
+  { id:"participate-onemindful-practice", title:"参加する・ワン・マインドフルにの練習", skill:"参加する・ワン・マインドフルに", description:"自動操縦やマルチタスクに気づき、一つのことに完全に参加する練習です。", fields:[{id:"activity",label:"活動",type:"text",placeholder:"例：食事、通勤、家事など"},{id:"autopilot",label:"自動操縦・マルチタスクになっていた場面",type:"textarea",placeholder:"気づいたら終わっていた、同時に他のことをしていた場面は？"},{id:"effect",label:"それによってどうなったか",type:"textarea",placeholder:"例：集中力が落ちた、味わえなかった、ミスが増えた"},{id:"flow",label:"一つのことに完全に没頭できた場面",type:"textarea",placeholder:"時間を忘れて取り組めた場面はありましたか？"},{id:"tryNext",label:"次に試してみたいこと",type:"text",placeholder:""}]},
+  { id:"effective-practice", title:"「正しさ」vs「目標」", skill:"効果的に", description:"対立が生じた場面で、「正しさ」を主張したい気持ちと本当の目標を分けて考えるワーク。", fields:[{id:"situation",label:"対立が生じた状況",type:"textarea",placeholder:""},{id:"rightFeeling",label:"「正しさ」を主張したい気持ち",type:"textarea",placeholder:"自分が正しいと感じる理由は？"},{id:"goal",label:"本当の目標",type:"textarea",placeholder:"この状況で本当に達成したいことは？"},{id:"effective",label:"効果的な行動",type:"textarea",placeholder:"目標を達成するために、うまくいきそうな行動は？"},{id:"reflection",label:"試してみてどうだったか",type:"textarea",placeholder:""}]},
 ];
 
 // ── localStorage ─────────────────────────────────────────────
@@ -1197,7 +1198,7 @@ function saveParticipatePractice() {
   if (msg) { msg.style.display = "block"; setTimeout(() => msg.style.display = "none", 2500); }
 }
 
-// ── 判断しない：練習カテゴリ ────────────────────────────────────
+// ── 判断しないで：練習カテゴリ ────────────────────────────────────
 const nonjudgePracticeCategories = [
   { id:"nj-notice", icon:"👁", label:"判断的な思考に気づく", color:"#2D6A7F", bg:"#EAF4F8",
     items:["判断的な思考に気づいたとき、心の中で「判断的な思考が浮かんだ」と描写する","判断的な思考や発言がいくつ浮かんだか数えてみる（指を折る、紙にチェックを付けるなど）"] },
@@ -1237,7 +1238,7 @@ function renderNonjudgeDetail(sk) {
     <div class="detail-tab-content" id="dtabcontent-theory">
 
       <div class="theory-section">
-        <h4>「判断しない」とは何か</h4>
+        <h4>「判断しないで」とは何か</h4>
         <p class="theory-text" style="margin-bottom:12px;">
           判断しないとは、現実を「良い・悪い」「価値がある・価値がない」といった評価を加えずに、<strong>あるがまま</strong>に描写することです。否定的な判断を肯定的な判断に変えることではありません。良し悪しの評価そのものを手放します。
         </p>
@@ -1729,12 +1730,12 @@ document.getElementById("diary-save-btn").addEventListener("click",function(){
 
 // ── ワークシート ──────────────────────────────────────────────
 function renderWorksheets(){
-  const catMap={"観察する":"cat-what","賢明な心（ワイズマインド）":"cat-core","判断しない":"cat-how"};
+  const catMap={"賢明な心（ワイズマインド）":"cat-core","観察する・描写する・判断しないで":"cat-what","参加する・ワン・マインドフルに":"cat-what","効果的に":"cat-how"};
   document.getElementById("ws-list").innerHTML=WORKSHEETS.map(ws=>`<button class="ws-card" onclick="showWsDetail('${ws.id}')"><span class="category-badge ${catMap[ws.skill]||'cat-core'}">スキル：${ws.skill}</span><div class="ws-title">${ws.title}</div><div class="ws-desc">${ws.description}</div></button>`).join("");
 }
 function showWsDetail(id){
   const ws=WORKSHEETS.find(w=>w.id===id); if(!ws)return;
-  const catMap={"観察する":"cat-what","賢明な心（ワイズマインド）":"cat-core","判断しない":"cat-how"};
+  const catMap={"賢明な心（ワイズマインド）":"cat-core","観察する・描写する・判断しないで":"cat-what","参加する・ワン・マインドフルに":"cat-what","効果的に":"cat-how"};
   document.getElementById("ws-detail-back").onclick=()=>{ document.getElementById("ws-detail").classList.remove("active"); document.getElementById("page-worksheet").classList.add("active"); };
   document.getElementById("ws-detail-body").innerHTML=`<span class="category-badge ${catMap[ws.skill]||'cat-core'}">スキル：${ws.skill}</span><h2 style="font-family:'Noto Serif JP',serif;font-size:22px;color:#1A3A45;margin:8px 0 6px;">${ws.title}</h2><p style="font-size:13px;color:#7A9BAA;margin:0 0 24px;line-height:1.7;">${ws.description}</p>${ws.fields.map(f=>`<div class="ws-field"><label>${f.label}</label>${f.type==="textarea"?`<textarea rows="3" placeholder="${f.placeholder}"></textarea>`:`<input type="text" placeholder="${f.placeholder}">`}</div>`).join("")}<button class="primary-btn" id="ws-save-btn" style="margin-top:8px;">ワークシートを保存</button><div style="height:20px"></div>`;
   document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
