@@ -49,6 +49,50 @@
   .when-box { background: #FFF8EC; border: 1px solid #E8C878; border-radius: 10px; padding: 12px 16px; }
   .when-label { font-size: 12px; color: #B07020; font-weight: 600; display: block; margin-bottom: 6px; }
   .when-text { font-size: 14px; color: #5A4010; line-height: 1.7; }
+  /* 詳細ページ内タブ */
+  .detail-tabs { display: flex; border-bottom: 1px solid #E0ECEF; margin: 0 -20px 20px; padding: 0 20px; }
+  .detail-tab-btn { flex: 1; border: none; background: none; padding: 10px 4px; font-size: 12px; font-weight: 600; color: #9AABBC; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; font-family: 'Noto Sans JP', sans-serif; }
+  .detail-tab-btn.active { color: #2D6A7F; border-bottom-color: #2D6A7F; }
+  .detail-tab-content { display: none; }
+  .detail-tab-content.active { display: block; }
+  /* 理論パネル */
+  .theory-section { margin-bottom: 20px; }
+  .theory-section h4 { font-family: 'Noto Serif JP', serif; font-size: 14px; color: #2D6A7F; margin-bottom: 8px; }
+  .theory-text { font-size: 13px; color: #2A4A55; line-height: 1.8; }
+  .mind-state-row { display: flex; gap: 8px; margin-bottom: 10px; }
+  .mind-state-card { flex: 1; border-radius: 10px; padding: 10px 12px; border: 1px solid; }
+  .mind-state-card .ms-label { font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px; }
+  .mind-state-card .ms-chars { font-size: 12px; line-height: 1.7; }
+  /* 練習チェックリスト */
+  .practice-item { display: flex; align-items: flex-start; gap: 10px; padding: 12px 0; border-bottom: 1px solid #F0F4F6; }
+  .practice-item:last-child { border-bottom: none; }
+  .practice-check { width: 22px; height: 22px; border-radius: 6px; border: 2px solid #D0DFE5; background: #fff; flex-shrink: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 13px; transition: all 0.15s; margin-top: 1px; }
+  .practice-check.checked { background: #2D6A7F; border-color: #2D6A7F; color: #fff; }
+  .practice-info { flex: 1; }
+  .practice-name { font-size: 14px; color: #1A3A45; font-weight: 600; margin-bottom: 3px; line-height: 1.5; }
+  .practice-desc { font-size: 12px; color: #6A8A96; line-height: 1.6; }
+  .practice-save-btn { width: 100%; background: #2D6A7F; color: #fff; border: none; border-radius: 10px; padding: 12px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'Noto Sans JP', sans-serif; margin-top: 16px; transition: background 0.2s; }
+  .practice-save-btn.saved { background: #5AA87A; }
+  /* アコーディオン */
+  .accordion-item { border: 1px solid #D8EAEF; border-radius: 12px; margin-bottom: 8px; overflow: hidden; }
+  .accordion-header { display: flex; align-items: center; gap: 10px; width: 100%; background: #fff; border: none; padding: 13px 14px; cursor: pointer; text-align: left; font-family: 'Noto Sans JP', sans-serif; transition: background 0.15s; }
+  .accordion-header:hover { background: #F4F9FB; }
+  .accordion-header.open { background: #EAF4F8; }
+  .accordion-icon { font-size: 18px; flex-shrink: 0; }
+  .accordion-title { font-size: 14px; font-weight: 700; color: #1A3A45; flex: 1; }
+  .accordion-arrow { font-size: 12px; color: #9AABBC; transition: transform 0.2s; flex-shrink: 0; }
+  .accordion-header.open .accordion-arrow { transform: rotate(180deg); }
+  .accordion-body { display: none; padding: 0 14px 14px; background: #fff; }
+  .accordion-body.open { display: block; }
+  .accordion-desc { font-size: 13px; color: #4A6A75; line-height: 1.8; margin-bottom: 10px; }
+  .accordion-illust { margin: 10px 0; }
+  .observe-contrast { display: flex; gap: 8px; margin: 12px 0; }
+  .observe-contrast-card { flex: 1; border-radius: 10px; padding: 10px 12px; font-size: 12px; line-height: 1.7; }
+  .mind-metaphor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0; }
+  .metaphor-card { border-radius: 10px; padding: 10px; text-align: center; border: 1px solid; }
+  .metaphor-card .metaphor-illust { margin-bottom: 6px; }
+  .metaphor-card .metaphor-name { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
+  .metaphor-card .metaphor-desc { font-size: 11px; line-height: 1.6; color: #4A6A75; }
   .diary-wrap { padding: 20px 20px 0; }
   .diary-title { font-family: 'Noto Serif JP', serif; font-size: 20px; color: #1A3A45; margin-bottom: 4px; }
   .diary-date { font-size: 13px; color: #7A9BAA; margin-bottom: 20px; }
@@ -103,6 +147,14 @@
   .mgmt-btn.import { background: #EEF7F2; color: #3A7A5A; }
   .mgmt-btn.danger { background: #FEF0F0; color: #C04040; }
   .empty-graph { text-align: center; padding: 24px; color: #9AABBC; font-size: 13px; }
+  /* 学びタブ */
+  .learn-map-item { border-radius: 12px; padding: 14px 16px; cursor: pointer; transition: box-shadow 0.15s, transform 0.12s; }
+  .learn-map-item:hover { box-shadow: 0 3px 10px rgba(45,106,127,0.12); transform: translateY(-1px); }
+  .learn-map-label { font-size: 11px; font-weight: 700; margin-bottom: 4px; letter-spacing: 0.02em; }
+  .learn-map-title { font-family: 'Noto Serif JP', serif; font-size: 16px; font-weight: 700; color: #1A3A45; margin-bottom: 4px; }
+  .learn-map-desc { font-size: 12px; color: #4A6A75; line-height: 1.7; }
+  .learn-map-sub { background: rgba(255,255,255,0.75); border-radius: 8px; padding: 8px 12px; font-size: 13px; font-weight: 600; color: #1A3A45; cursor: pointer; transition: background 0.15s; }
+  .learn-map-sub:hover { background: #fff; }
 </style>
 </head>
 <body>
@@ -111,6 +163,98 @@
     <h1>DBT スキルトレーニング</h1>
     <span class="module-badge">マインドフルネス</span>
   </header>
+
+  <div id="page-learn" class="page">
+    <div style="padding:20px 20px 0;">
+      <h2 style="font-family:'Noto Serif JP',serif;font-size:20px;color:#1A3A45;margin-bottom:4px;">マインドフルネスを学ぶ</h2>
+      <p style="font-size:13px;color:#7A9BAA;margin-bottom:22px;">スキルの全体像と、その目的について</p>
+
+      <div class="theory-section">
+        <h4>マインドフルネスとは</h4>
+        <p class="theory-text" style="margin-bottom:10px;">
+          「マインドフルネス」とは、判断したり、瞬間に執着したりすることなく、今という瞬間に意識的に注意を向ける行為のことです。自動的・習慣的な行動とは対照的に、今この瞬間に自覚的でいる状態を指します。
+        </p>
+        <p class="theory-text">
+          DBT（弁証法的行動療法）の中で、マインドフルネスは他のすべてのスキルを支える「中核的スキル」です。対人関係・情動調節・苦悩耐性、それぞれのスキルモジュールの冒頭で毎回復習される、DBTの全治療を通して一貫して重視されるスキルでもあります。もとは東洋の瞑想の実践に由来しますが、DBTでは特定の宗教とは無関係に、意図的に非宗教的な形式で提供されています。実践や習得に、いかなる精神的・宗教的信念も必要ありません。
+        </p>
+      </div>
+
+      <div class="theory-section">
+        <h4>なぜ練習するのか</h4>
+        <p class="theory-text" style="margin-bottom:8px;"><strong>① 現実をありのままに体験する。</strong>出来事を歪めずに受け取る力を育てます。</p>
+        <p class="theory-text" style="margin-bottom:8px;"><strong>② 知恵を育てる。</strong>頭の知恵（合理性）と心の知恵（感情）の両方を活かした判断力を育てます。</p>
+        <p class="theory-text" style="margin-bottom:8px;"><strong>③ とらわれから自由になる。</strong>強い感情や衝動、欲求に流されず、選ぶ余地を持てるようになります。</p>
+        <p class="theory-text"><strong>④ 自分や他者への思いやりを育てる。</strong></p>
+      </div>
+
+      <div class="theory-section">
+        <h4>「マインドフルネスの実践」とは</h4>
+        <p class="theory-text">
+          マインドフルネスの実践とは、判断せず、執着を持たずに、今という瞬間の自覚に立ち戻るための努力を繰り返すことです。過去の思考やイメージ、未来への心配に気づいたら、そっと今この瞬間に注意を戻す——その繰り返しが実践そのものです。一度身につければ終わり、というものではなく、日々の生活の中で何度も立ち戻る練習です。
+        </p>
+      </div>
+
+      <div class="theory-section">
+        <h4>瞑想との違い</h4>
+        <p class="theory-text">
+          「瞑想」は、一定時間座ったり立ったりして行うマインドフルネスの実践方法のひとつです。ただし、瞑想とマインドフルネスは同じものではありません。マインドフルネスは瞑想を必要としないため、誰でも実践できますが、座って静かにじっとしていることが難しい人にとって、瞑想そのものは必ずしも取り組みやすい方法ではありません。このアプリで扱うスキルは、正式な瞑想ができなくても日常生活の中で実践できるよう組み立てられています。
+        </p>
+      </div>
+
+      <div class="theory-section">
+        <h4>心を開く／心を集中させる</h4>
+        <p class="theory-text" style="margin-bottom:10px;">マインドフルネスの実践には、大きく二つの訓練方法があります。</p>
+        <div class="observe-contrast">
+          <div class="observe-contrast-card" style="background:#EAF4F8;border:1px solid #B0CCD8;">
+            <div style="font-size:11px;font-weight:700;color:#2D6A7F;margin-bottom:6px;">心を開く</div>
+            <div style="font-size:12px;color:#1A3A45;line-height:1.7;">気づいたこと全てを、しがみつかずに見守る。ベルトコンベアーの上を流れていく物を、止めずにただ眺めるように</div>
+          </div>
+          <div class="observe-contrast-card" style="background:#FBEEEF;border:1px solid #E0B0BA;">
+            <div style="font-size:11px;font-weight:700;color:#C16A7F;margin-bottom:6px;">心を集中させる</div>
+            <div style="font-size:12px;color:#1A3A45;line-height:1.7;">具体的な内的・外的な出来事ひとつに意識を集中する。呼吸や決まった言葉を繰り返すなど</div>
+          </div>
+        </div>
+        <p class="theory-text" style="margin-top:10px;">
+          初心者や、注意を向けることが難しい人にとっては「心を開く」練習の方が難しく感じられることが多いため、まずは「心を集中させる」練習から始めるのがおすすめです。
+        </p>
+      </div>
+
+      <div class="theory-section">
+        <h4>スキルの全体マップ</h4>
+        <p class="theory-text" style="margin-bottom:14px;">マインドフルネスのスキルは、3つの層からできています。タップすると各スキルの詳細に移動します。</p>
+
+        <div class="learn-map-item" style="background:#EEF7EE;border:1px solid #8AB89A;margin-bottom:2px;" onclick="showDetail('wise-mind')">
+          <div class="learn-map-label" style="color:#1A5A30;">土台：心の状態</div>
+          <div class="learn-map-title">賢明な心</div>
+          <div class="learn-map-desc">合理的な心と感情的な心が重なる場所。すべてのマインドフルネス実践の出発点です。</div>
+        </div>
+
+        <div style="text-align:center;color:#B0C4CC;font-size:16px;margin:4px 0;">↓</div>
+
+        <div style="background:#FFF3E0;border:1px solid #E8C878;border-radius:12px;padding:14px 16px;margin-bottom:2px;">
+          <div class="learn-map-label" style="color:#B07020;">「What」スキル — 何をするか</div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">
+            <div class="learn-map-sub" onclick="showDetail('observe')">観察する</div>
+            <div class="learn-map-sub" onclick="showDetail('describe')">描写する</div>
+            <div class="learn-map-sub" onclick="showDetail('participate')">参加する</div>
+          </div>
+        </div>
+
+        <div style="text-align:center;color:#B0C4CC;font-size:16px;margin:4px 0;">↓</div>
+
+        <div style="background:#F0F4FF;border:1px solid #B8C4F0;border-radius:12px;padding:14px 16px;">
+          <div class="learn-map-label" style="color:#4A5BA8;">「How」スキル — どのように行うか</div>
+          <div style="display:flex;flex-direction:column;gap:6px;margin-top:8px;">
+            <div class="learn-map-sub" onclick="showDetail('nonjudgmental')">判断しない</div>
+            <div class="learn-map-sub" onclick="showDetail('one-mindfully')">ワン・マインドフルに</div>
+            <div class="learn-map-sub" onclick="showDetail('effectively')">効果的に</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:20px"></div>
+    </div>
+  </div>
 
   <div id="page-skills" class="page active">
     <h2 style="font-family:'Noto Serif JP',serif;font-size:20px;color:#1A3A45;padding:20px 20px 0;">マインドフルネス</h2>
@@ -175,6 +319,7 @@
   </div>
 
   <nav class="tabs">
+    <button class="tab-btn" data-tab="learn"><span class="tab-icon">📖</span><span class="tab-label">学び</span></button>
     <button class="tab-btn active" data-tab="skills"><span class="tab-icon">✦</span><span class="tab-label">スキル</span></button>
     <button class="tab-btn" data-tab="diary"><span class="tab-icon">📋</span><span class="tab-label">ダイアリー</span></button>
     <button class="tab-btn" data-tab="worksheet"><span class="tab-icon">✏️</span><span class="tab-label">ワーク</span></button>
@@ -232,11 +377,1315 @@ function renderSkills(){
 }
 function setFilter(c){ state.filter=c; renderSkills(); }
 
+// ── 賢明な心：練習チェックの状態 ────────────────────────────
+const wiseMindPractices = [
+  { id:"wm1", name:"ワイズ・マインドの呼吸", desc:"息を吸う時「ワイズ（賢明な）」、息を吐く時「マインド（心）」と心の中で唱える。賢明な心に落ち着くまで続ける。" },
+  { id:"wm2", name:"賢明な心に質問し、答えに耳を傾ける", desc:"息を吸いながら、心の中で賢明な心に問いかける。息を吐きながら、答えに耳を澄ます。答えを無理に出さず、ただ聴く。" },
+  { id:"wm3", name:"「これは賢明な心？」と尋ねる", desc:"「この行動・考え・計画は賢明な心から来ているか？」と息を吸いながら自問する。息を吐きながら答えに耳を澄ます。" },
+  { id:"wm4", name:"湖上の石片", desc:"澄んだ青い湖のほとりにいる自分を想像する。自分が小さな平らな石になったつもりで、湖の上に投げ出され、静かな水の中をゆっくりと沈んでいく。湖の底の砂の上に着いた時、そこで注意を落ち着かせる。" },
+  { id:"wm5", name:"らせん階段を降りる", desc:"自分の中にらせん状の階段があり、その奥深くへと続いていると想像する。一段一段ゆっくりと下りていく。感覚に注意を向け、静けさに気づく。中心に着いたとき、そこで注意を落ち着かせる。" },
+  { id:"wm6", name:"呼吸に集中する", desc:"息を吸いながら体の動きを追う。注意をみぞおちあたりに落ち着かせる。息を吐きながら、その中心への注意を保ったまま呼吸する。賢明な心に落ち着く。" },
+  { id:"wm7", name:"意識を広げる", desc:"息を吸いながら自分の中心に意識を向ける。息を吐きながら、中心への気づきを保ちつつ、今いる空間全体へと気づきを広げる。その瞬間の中で続ける。" },
+  { id:"wm8", name:"吸う息と吐く息の間の一瞬の合間に落とし込む", desc:"息を吸った後の止まり（息の頂点）に気づく。息を吐いた後の止まり（息の底）に気づく。それぞれの止まりで、その静寂の中に「落ちる」ようにする。" },
+];
+const wiseMindChecked = new Set();
+
+function renderWiseMindDetail(sk) {
+  // タブ状態
+  let activeDetailTab = "skill";
+
+  const html = `
+    <span class="category-badge cat-core">${sk.category}</span>
+    <h2 style="font-family:'Noto Serif JP',serif;font-size:24px;color:#1A3A45;margin:8px 0 4px;font-weight:700;">${sk.name}</h2>
+    <p style="color:#5A8A9F;font-size:14px;margin:0 0 14px;">${sk.subtitle}</p>
+    ${intensityHTML(sk.intensity)}
+    <div class="detail-tabs" style="margin-top:16px;">
+      <button class="detail-tab-btn active" id="dtab-skill" onclick="switchDetailTab('skill')">スキル解説</button>
+      <button class="detail-tab-btn" id="dtab-theory" onclick="switchDetailTab('theory')">理論・背景</button>
+      <button class="detail-tab-btn" id="dtab-practice" onclick="switchDetailTab('practice')">練習メニュー</button>
+    </div>
+
+    <!-- スキル解説タブ -->
+    <div class="detail-tab-content active" id="dtabcontent-skill">
+      <div class="detail-desc">${sk.description}</div>
+      <h3 class="detail-h3">練習の手順</h3>
+      <ol class="howto-list">${sk.howto.map(h=>`<li>${h}</li>`).join("")}</ol>
+      <div class="when-box"><span class="when-label">💡 こんなときに</span><span class="when-text">${sk.when}</span></div>
+    </div>
+
+    <!-- 理論・背景タブ -->
+    <div class="detail-tab-content" id="dtabcontent-theory">
+
+      <div class="theory-section">
+        <h4>3つの心の状態</h4>
+        <p class="theory-text" style="margin-bottom:14px;">
+          DBTでは、人の心には3つの状態があると考えます。<br>賢明な心は、感情的な心と合理的な心の<strong>統合</strong>であり、それ以上のものです。
+        </p>
+
+        <!-- ベン図 SVG -->
+        <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:320px;display:block;margin:0 auto 16px;">
+          <!-- 合理的な心 -->
+          <circle cx="120" cy="95" r="72" fill="#EAF4F8" fill-opacity="0.85" stroke="#2D6A7F" stroke-width="2"/>
+          <!-- 感情的な心 -->
+          <circle cx="200" cy="95" r="72" fill="#FBEEEF" fill-opacity="0.85" stroke="#C16A7F" stroke-width="2"/>
+          <!-- 重なり部分（賢明な心）-->
+          <path d="M160,33 A72,72 0 0,1 160,157 A72,72 0 0,1 160,33Z" fill="#E8F4E8" fill-opacity="0.9"/>
+          <!-- ラベル：合理的な心 -->
+          <text x="95" y="82" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#2D6A7F">合理的な心</text>
+          <text x="95" y="96" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#2D6A7F">冷静・論理的</text>
+          <text x="95" y="109" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#2D6A7F">課題志向</text>
+          <!-- ラベル：感情的な心 -->
+          <text x="225" y="82" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" font-weight="700" fill="#C16A7F">感情的な心</text>
+          <text x="225" y="96" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#C16A7F">熱い・気分に</text>
+          <text x="225" y="109" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#C16A7F">左右される</text>
+          <!-- ラベル：賢明な心 -->
+          <text x="160" y="88" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="11" font-weight="700" fill="#1A5A30">賢明な</text>
+          <text x="160" y="103" text-anchor="middle" font-family="'Noto Serif JP',serif" font-size="11" font-weight="700" fill="#1A5A30">心</text>
+          <!-- 矢印と「中道」 -->
+          <text x="160" y="175" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#5A8A6A">中道・統合</text>
+          <line x1="160" y1="168" x2="160" y2="157" stroke="#5A8A6A" stroke-width="1.5" marker-end="url(#arr)"/>
+          <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6Z" fill="#5A8A6A"/></marker></defs>
+        </svg>
+
+        <!-- 3つの心の詳細 -->
+        <div class="mind-state-row">
+          <div class="mind-state-card" style="background:#EAF4F8;border-color:#B0CCD8;">
+            <span class="ms-label" style="color:#2D6A7F;">合理的な心</span>
+            <div class="ms-chars" style="color:#2A4A55;">
+              ・事実・論理・現実に基づく<br>
+              ・冷静で計画的<br>
+              ・情動や共感を後回しにする
+            </div>
+          </div>
+          <div class="mind-state-card" style="background:#FBEEEF;border-color:#E0B0BA;">
+            <span class="ms-label" style="color:#C16A7F;">感情的な心</span>
+            <div class="ms-chars" style="color:#2A4A55;">
+              ・情動が思考・行動を支配<br>
+              ・熱く気分に左右される<br>
+              ・事実が情動に合うよう歪む
+            </div>
+          </div>
+        </div>
+        <div class="mind-state-card" style="background:#EEF7EE;border-color:#8AB89A;margin-bottom:0;">
+          <span class="ms-label" style="color:#1A5A30;">賢明な心（統合）</span>
+          <div class="ms-chars" style="color:#2A4A55;">
+            ・情動体験と合理的分析に直観的認識が加わる<br>
+            ・各人の内側にある智慧<br>
+            ・理性と情動の両方の価値を見出す<br>
+            ・左脳と右脳を統合する<br>
+            ・中道
+          </div>
+        </div>
+      </div>
+
+      <div class="theory-section">
+        <h4>なぜ賢明な心は難しいのか</h4>
+        <p class="theory-text">
+          感情的な心に入ると、事実が情動に合うよう歪んで見えます。合理的な心だけに入ると、自分の感情や他者の体験を無視してしまいます。どちらか一方に引っ張られている時ほど、賢明な心を見つけることが難しく感じられます。<br><br>
+          賢明な心は「深いところで正しいと感じられる静かな確信」です。感情でも理屈でもなく、両方が重なる場所にあります。
+        </p>
+      </div>
+
+    </div>
+
+    <!-- 練習メニュータブ -->
+    <div class="detail-tab-content" id="dtabcontent-practice">
+      <p style="font-size:13px;color:#6A8A96;margin-bottom:4px;line-height:1.7;">
+        今日やってみる練習をタップして選び、記録しましょう。
+      </p>
+      <p style="font-size:11px;color:#9AABBC;margin-bottom:16px;">複数選択できます</p>
+      <div id="wisemind-practice-list"></div>
+      <button class="practice-save-btn" id="wisemind-save-btn" onclick="saveWiseMindPractice()">今日の練習を記録する</button>
+      <div id="wisemind-save-msg" style="display:none;text-align:center;margin-top:10px;font-size:13px;color:#5AA87A;font-weight:600;">✓ 記録しました</div>
+    </div>
+  `;
+
+  document.getElementById("detail-body").innerHTML = html;
+  renderWiseMindPracticeList();
+}
+
+function switchDetailTab(tab) {
+  document.querySelectorAll('.detail-tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.detail-tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById(`dtab-${tab}`).classList.add('active');
+  document.getElementById(`dtabcontent-${tab}`).classList.add('active');
+}
+
+function renderWiseMindPracticeList() {
+  const el = document.getElementById("wisemind-practice-list");
+  if (!el) return;
+  el.innerHTML = wiseMindPractices.map(p => `
+    <div class="practice-item">
+      <div class="practice-check ${wiseMindChecked.has(p.id) ? 'checked' : ''}" id="pcheck-${p.id}" onclick="toggleWiseMindPractice('${p.id}')">
+        ${wiseMindChecked.has(p.id) ? '✓' : ''}
+      </div>
+      <div class="practice-info">
+        <div class="practice-name">${p.name}</div>
+        <div class="practice-desc">${p.desc}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleWiseMindPractice(id) {
+  if (wiseMindChecked.has(id)) wiseMindChecked.delete(id);
+  else wiseMindChecked.add(id);
+  renderWiseMindPracticeList();
+}
+
+function saveWiseMindPractice() {
+  if (wiseMindChecked.size === 0) return;
+  const today = new Date().toISOString().slice(0, 10);
+  const recs = loadRecords();
+  const idx = recs.findIndex(r => r.date === today);
+  const entry = idx >= 0 ? recs[idx] : { date: today, emotionScores: {}, urgeScore: 0, skillsUsed: [], note: "" };
+  entry.wiseMindPractices = [...wiseMindChecked];
+  if (!entry.skillsUsed.includes("wise-mind")) entry.skillsUsed.push("wise-mind");
+  if (idx >= 0) recs[idx] = entry; else recs.unshift(entry);
+  saveRecords(recs);
+  const msg = document.getElementById("wisemind-save-msg");
+  if (msg) { msg.style.display = "block"; setTimeout(() => msg.style.display = "none", 2500); }
+}
+
+// ── 観察する：練習カテゴリ ────────────────────────────────────
+const observePracticeCategories = [
+  { id:"obs-eye", icon:"👁", label:"目で観察する", color:"#2D6A7F", bg:"#EAF4F8",
+    items:["地面に寝転んで空に浮かぶ雲を眺める","ゆっくり歩きながら花・木・自然そのものに気づく","屋外に座り、頭や目で追わずに目の前を行き交う人や物を眺める","他の人の顔の表情や動きに気づく（感情・思考・意図にラベルを貼らずに）","葉・花・小石を手に取り、細部をじっくり観察する","美しいものを見つけ、数分間眺める"] },
+  { id:"obs-sound", icon:"👂", label:"音を観察する", color:"#4A5BA8", bg:"#F0F4FF",
+    items:["一瞬立ち止まってただ聴く。音の形や質感、音と音の間の沈黙にも気づく","誰かが話しているとき、声の高さ・滑らかさ・言葉の間を聴く","音楽を聴きながら一音一音・音と音の間を観察し、その音を体に吸い込むように聴く"] },
+  { id:"obs-smell", icon:"👃", label:"匂いを観察する", color:"#7A6AAA", bg:"#F4F2FB",
+    items:["息を吸いながら周囲の匂いに気づく。何かを近づけて嗅ぎ、離してからも残り香が続くか観察する","食事中は食べ物の香り、料理中はスパイスの香り、外を歩くときは空気の匂いに気づく"] },
+  { id:"obs-taste", icon:"👅", label:"味・食べることを観察する", color:"#B07020", bg:"#FFF3E0",
+    items:["口に入れたものを口の中に留め、全ての味の感覚に注意を向ける","食事の一口一口の味に集中しながら食べる"] },
+  { id:"obs-urge", icon:"🌊", label:"衝動を観察する（衝動のサーフィン）", color:"#5A9E7A", bg:"#EEF7F2",
+    items:["衝動は波のようなものと想像し、衝動がサーフボードで乗りこなすことができる波だと思いながら、衝動が来ては去るのをただ観察する","何かを避けたい衝動に気づく","体全体をスキャンし、衝動が体のどこにあるかに気づく","食べ物を噛みながら、飲み込みたい衝動が生じる瞬間に気づく"] },
+  { id:"obs-body", icon:"✋", label:"触覚・体の感覚を観察する", color:"#C16A7F", bg:"#FBEEEF",
+    items:["指先で上唇をそっと触れる。触るのを止め、感覚がどのくらいで消えるかを観察する","歩きながら足裏が地面を踏む感覚・足の上下動に気づく","座っているとき、椅子に当たる太ももや背中の曲がり具合に気づく","触れているものすべてに注意を向ける（靴の中の足・服が触れる体・椅子に触れる腕）","胸・お腹・肩の感覚に注意を向ける","体の中で張りや緊張を感じる場所に注意を向ける"] },
+  { id:"obs-breath", icon:"💨", label:"呼吸を観察する", color:"#2D6A7F", bg:"#EAF4F8",
+    items:["お腹の動きに集中する（吸う時に腹部が膨らみ、吐く時に下がる）","呼吸の中の一瞬の止まりに気づく（吸い切った後・吐き切った後）","鼻から吸う空気の感覚（鼻腔を上下する感覚）に集中する","ゆっくり歩きながら、吸う息と吐く息の長さを歩数で計る"] },
+];
+
+const observeChecked = new Set();
+
+// ── 描写する：練習カテゴリ ────────────────────────────────────
+const FACE_B64 = "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";
+
+const describePracticeCategories = [
+  { id:"desc-outside", icon:"🌿", label:"外の世界を描写する", color:"#5A9E7A", bg:"#EEF7F2",
+    items:["地面に寝転んで空の雲を眺め、見えた雲のパターンを描写する","公園のベンチや道端で、そばを通る人について一つのことを描写する","自然の中のもの（葉・水滴・動物など）を手に取り、できるだけ細かく描写する","誰かが言ったことをできるだけ正確に描写する（正しいか後で確認する）","怒り・恐れ・悲しみを感じている人の顔の形・動き・配置を描写する（感情・思考・意図をラベルしない）","誰かの行動を非常に具体的に描写する（意図や結果を描写せず、判断的な言葉を避ける）"] },
+  { id:"desc-thoughts", icon:"💭", label:"思考と感情を描写する", color:"#4A5BA8", bg:"#F0F4FF",
+    items:["感情が生じたとき「〇〇という感情が湧き起こっている」と描写する","強い感情を感じたとき、思考を描写する「〇〇と感じ、私の思考は〇〇だ」","誰かが何かをしたり言ったりした後、感情を描写する「あなたが〇〇をすると、私は〇〇と感じる」","思考・感情・観察した他者の行動を描写する「〇〇が起きると、私は〇〇と感じ、私の思考は〇〇だ」","強い感情を感じながら、できるだけ多くの思考を描写する"] },
+  { id:"desc-breath", icon:"🌬", label:"呼吸を描写する", color:"#2D6A7F", bg:"#EAF4F8",
+    items:["息を吸うたびに「吸っている、1」と描写し、吐くたびに「吐いている、1」と描写する。2、3…10まで続け、また1に戻る。数を忘れたら1に戻る","穏やかに鼻から息を吸いながら「普通に吸っている」と描写する。吐きながら「普通に吐いている」と描写する。3回続け、4回目は長く吸いながら「長く息を吸っている」と描写する","出たり入ったりする息を追いながら「吸う息を始まりから終わりまで追っている。吐く息を始まりから終わりまで追っている」と描写する"] },
+];
+
+const describeChecked = new Set();
+
+function renderDescribeDetail(sk) {
+  const html = `
+    <span class="category-badge cat-what">${sk.category}</span>
+    <h2 style="font-family:'Noto Serif JP',serif;font-size:24px;color:#1A3A45;margin:8px 0 4px;font-weight:700;">${sk.name}</h2>
+    <p style="color:#5A8A9F;font-size:14px;margin:0 0 14px;">${sk.subtitle}</p>
+    ${intensityHTML(sk.intensity)}
+    <div class="detail-tabs" style="margin-top:16px;">
+      <button class="detail-tab-btn active" id="dtab-skill" onclick="switchDetailTab('skill')">スキル解説</button>
+      <button class="detail-tab-btn" id="dtab-theory" onclick="switchDetailTab('theory')">理論・背景</button>
+      <button class="detail-tab-btn" id="dtab-practice" onclick="switchDetailTab('practice')">練習メニュー</button>
+    </div>
+
+    <!-- スキル解説タブ -->
+    <div class="detail-tab-content active" id="dtabcontent-skill">
+      <div class="detail-desc">${sk.description}</div>
+      <h3 class="detail-h3">練習の手順</h3>
+      <ol class="howto-list">${sk.howto.map(h=>`<li>${h}</li>`).join("")}</ol>
+      <div class="when-box"><span class="when-label">💡 こんなときに</span><span class="when-text">${sk.when}</span></div>
+    </div>
+
+    <!-- 理論・背景タブ -->
+    <div class="detail-tab-content" id="dtabcontent-theory">
+
+      <div class="theory-section">
+        <h4>「描写する」とは何か</h4>
+        <p class="theory-text" style="margin-bottom:10px;">
+          描写するとは、体験に<strong>事実として</strong>言葉をあてがうことです。解釈・判断・思い込みを混ぜずに、見えていること・感じていることだけを言葉にします。
+        </p>
+        <p class="theory-text">
+          感情や思考は「事実」を正確に反映しているとは限りません。恐怖を感じていても、実際に危険があるとは限らない。描写する力を身につけることで、情動の反応と実際の出来事を切り離して見ることができるようになります。
+        </p>
+      </div>
+
+      <div class="theory-section">
+        <h4>この顔を見て、あなたは何を描写しますか？</h4>
+        <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:14px;">
+          <img src="data:image/png;base64,${FACE_B64}" alt="顔の表情" style="width:90px;height:auto;flex-shrink:0;">
+          <div>
+            <div style="background:#FEF0F0;border:1px solid #E0AAAA;border-radius:10px;padding:10px 12px;margin-bottom:8px;">
+              <div style="font-size:11px;font-weight:700;color:#C04040;margin-bottom:5px;">❌ 解釈・ラベリング</div>
+              <div style="font-size:13px;color:#5A2A2A;line-height:1.8;">「怒っている」<br>「機嫌が悪い」<br>「私のことが嫌いなのかも」</div>
+            </div>
+            <div style="background:#EEF7F2;border:1px solid #8ABB9A;border-radius:10px;padding:10px 12px;">
+              <div style="font-size:11px;font-weight:700;color:#2A6A40;margin-bottom:5px;">✓ 事実の描写</div>
+              <div style="font-size:13px;color:#1A4A30;line-height:1.8;">「眉が内側に寄っている」<br>「口角が下がっている」<br>「眉間にしわがある」</div>
+            </div>
+          </div>
+        </div>
+        <p class="theory-text">
+          同じ顔を見ても、「解釈」は感情によって変わります。「描写する」は、見えている事実だけに言葉を乗せます。感覚を通して観察できないものは、描写できません。
+        </p>
+      </div>
+
+      <div class="theory-section">
+        <h4>感情・思考・事実を分ける</h4>
+        <p class="theory-text" style="margin-bottom:12px;">
+          描写を練習するとき、次の3つを区別することが大切です。
+        </p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="background:#EAF4F8;border-left:3px solid #2D6A7F;border-radius:0 8px 8px 0;padding:10px 14px;">
+            <div style="font-size:12px;font-weight:700;color:#2D6A7F;margin-bottom:4px;">事実（観察できること）</div>
+            <div style="font-size:13px;color:#2A4A55;line-height:1.7;">「彼は昨日、約束の時間に来なかった」<br>「胸のあたりが締め付けられる感じがある」</div>
+          </div>
+          <div style="background:#FBEEEF;border-left:3px solid #C16A7F;border-radius:0 8px 8px 0;padding:10px 14px;">
+            <div style="font-size:12px;font-weight:700;color:#C16A7F;margin-bottom:4px;">感情（体験していること）</div>
+            <div style="font-size:13px;color:#2A4A55;line-height:1.7;">「怒りの感情が湧いている」<br>「悲しみという感情が出てきた」</div>
+          </div>
+          <div style="background:#FFF8EC;border-left:3px solid #E8A855;border-radius:0 8px 8px 0;padding:10px 14px;">
+            <div style="font-size:12px;font-weight:700;color:#B07020;margin-bottom:4px;">思考（頭の中に浮かんだこと）</div>
+            <div style="font-size:13px;color:#2A4A55;line-height:1.7;">「「彼は私のことを大切にしていない」という考えが浮かんだ」<br>「「どうせうまくいかない」という考えが出てきた」</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="theory-section">
+        <h4>描写できないものは描写しない</h4>
+        <p class="theory-text">
+          感覚を通して観察できないこと——他者の意図、将来の予測、自分や他者への評価——は描写ではなく解釈です。描写は「今ここで直接観察できること」だけに限ります。
+        </p>
+      </div>
+
+    </div>
+
+    <!-- 練習メニュータブ -->
+    <div class="detail-tab-content" id="dtabcontent-practice">
+      <p style="font-size:13px;color:#6A8A96;margin-bottom:4px;line-height:1.7;">カテゴリをタップして練習を選びましょう。</p>
+      <p style="font-size:11px;color:#9AABBC;margin-bottom:14px;">複数選択できます</p>
+      <div id="describe-accordion"></div>
+      <button class="practice-save-btn" id="describe-save-btn" onclick="saveDescribePractice()">今日の練習を記録する</button>
+      <div id="describe-save-msg" style="display:none;text-align:center;margin-top:10px;font-size:13px;color:#5AA87A;font-weight:600;">✓ 記録しました</div>
+    </div>
+  `;
+
+  document.getElementById("detail-body").innerHTML = html;
+  renderDescribeAccordion();
+}
+
+function renderDescribeAccordion() {
+  const el = document.getElementById("describe-accordion");
+  if (!el) return;
+  el.innerHTML = describePracticeCategories.map(cat => `
+    <div class="accordion-item">
+      <button class="accordion-header" id="acc-btn-${cat.id}" onclick="toggleAccordion('${cat.id}')">
+        <span class="accordion-icon">${cat.icon}</span>
+        <span class="accordion-title">${cat.label}</span>
+        <span style="font-size:11px;color:#9AABBC;margin-right:6px;">${describeChecked.has(cat.id) ? '✓ 選択中' : ''}</span>
+        <span class="accordion-arrow">▼</span>
+      </button>
+      <div class="accordion-body" id="acc-body-${cat.id}">
+        <div class="accordion-desc">以下の練習から試してみましょう：</div>
+        ${cat.items.map((item, i) => `
+          <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;">
+            <div onclick="toggleDescribeItem('${cat.id}-${i}')" style="width:20px;height:20px;border-radius:5px;border:2px solid ${cat.color}44;background:${describeChecked.has(cat.id+'-'+i)?cat.color:'#fff'};color:#fff;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:1px;transition:all 0.15s;">
+              ${describeChecked.has(cat.id+'-'+i)?'✓':''}
+            </div>
+            <span style="font-size:13px;color:#2A4A55;line-height:1.7;">${item}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleDescribeItem(key) {
+  if (describeChecked.has(key)) describeChecked.delete(key);
+  else describeChecked.add(key);
+  renderDescribeAccordion();
+  const catId = key.split('-').slice(0, -1).join('-');
+  const body = document.getElementById(`acc-body-${catId}`);
+  const btn = document.getElementById(`acc-btn-${catId}`);
+  if (body) body.classList.add('open');
+  if (btn) btn.classList.add('open');
+}
+
+function saveDescribePractice() {
+  if (describeChecked.size === 0) return;
+  const today = new Date().toISOString().slice(0, 10);
+  const recs = loadRecords();
+  const idx = recs.findIndex(r => r.date === today);
+  const entry = idx >= 0 ? recs[idx] : { date: today, emotionScores: {}, urgeScore: 0, skillsUsed: [], note: "" };
+  entry.describePractices = [...describeChecked];
+  if (!entry.skillsUsed.includes("describe")) entry.skillsUsed.push("describe");
+  if (idx >= 0) recs[idx] = entry; else recs.unshift(entry);
+  saveRecords(recs);
+  const msg = document.getElementById("describe-save-msg");
+  if (msg) { msg.style.display = "block"; setTimeout(() => msg.style.display = "none", 2500); }
+}
+
+function renderObserveDetail(sk) {
+  const html = `
+    <span class="category-badge cat-what">${sk.category}</span>
+    <h2 style="font-family:'Noto Serif JP',serif;font-size:24px;color:#1A3A45;margin:8px 0 4px;font-weight:700;">${sk.name}</h2>
+    <p style="color:#5A8A9F;font-size:14px;margin:0 0 14px;">${sk.subtitle}</p>
+    ${intensityHTML(sk.intensity)}
+    <div class="detail-tabs" style="margin-top:16px;">
+      <button class="detail-tab-btn active" id="dtab-skill" onclick="switchDetailTab('skill')">スキル解説</button>
+      <button class="detail-tab-btn" id="dtab-theory" onclick="switchDetailTab('theory')">理論・背景</button>
+      <button class="detail-tab-btn" id="dtab-practice" onclick="switchDetailTab('practice')">練習メニュー</button>
+    </div>
+
+    <!-- スキル解説タブ -->
+    <div class="detail-tab-content active" id="dtabcontent-skill">
+      <div class="detail-desc">${sk.description}</div>
+      <h3 class="detail-h3">練習の手順</h3>
+      <ol class="howto-list">${sk.howto.map(h=>`<li>${h}</li>`).join("")}</ol>
+      <div class="when-box"><span class="when-label">💡 こんなときに</span><span class="when-text">${sk.when}</span></div>
+    </div>
+
+    <!-- 理論・背景タブ -->
+    <div class="detail-tab-content" id="dtabcontent-theory">
+
+      <div class="theory-section">
+        <h4>「観察する」とは何か</h4>
+        <p class="theory-text" style="margin-bottom:12px;">
+          観察するとは、出来事・感情・体の反応が辛いものでも<strong>止めようとせず</strong>、喜ばしいものでも<strong>引き延ばそうとせず</strong>、ただ注目することです。体験から一歩下がって、今この瞬間をあるがままに受け取ります。
+        </p>
+        <p class="theory-text">
+          歩くことの観察と実際に歩くことは別の活動です。思考の観察と実際の思考も別です。この「一歩下がる」能力がマインドフルネスの核心です。
+        </p>
+      </div>
+
+      <div class="theory-section">
+        <h4>「観察する」と「判断する」の違い</h4>
+        <p class="theory-text" style="margin-bottom:10px;">同じ体験でも、言葉の選び方で意味が変わります。</p>
+        <div class="observe-contrast">
+          <div class="observe-contrast-card" style="background:#FEF0F0;border:1px solid #E0AAAA;">
+            <div style="font-size:11px;font-weight:700;color:#C04040;margin-bottom:6px;">❌ 判断</div>
+            <div style="font-size:13px;color:#5A2A2A;line-height:1.8;">「最悪だ」<br>「私はダメだ」<br>「あの人はひどい」<br>「もう耐えられない」</div>
+          </div>
+          <div class="observe-contrast-card" style="background:#EEF7F2;border:1px solid #8ABB9A;">
+            <div style="font-size:11px;font-weight:700;color:#2A6A40;margin-bottom:6px;">✓ 観察</div>
+            <div style="font-size:13px;color:#1A4A30;line-height:1.8;">「胸が重い感じがある」<br>「失敗した、という考えが浮かんだ」<br>「怒りの感情が出てきた」<br>「今、涙が出ている」</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="theory-section">
+        <h4>観察することは難しい</h4>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px;">
+          <img src="data:image/png;base64,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" alt="観察の難しさ" style="width:80px;height:auto;flex-shrink:0;">
+          <p class="theory-text">
+            心はそこにあるものを見なかったり、そこにないものを見たりします。思い込みや感情が、ありのままの体験を歪めてしまうのです。
+          </p>
+        </div>
+        <p class="theory-text">
+          観察するとは、この「心のフィルター」に気づきながら、できるだけ体験をあるがままに見ようとする練習です。判断や解釈を一旦脇に置いて、ただ「気づく」だけにとどまります。
+        </p>
+      </div>
+
+      <div class="theory-section">
+        <h4>思考を観察する</h4>
+        <p class="theory-text" style="margin-bottom:12px;">
+          思考は「事実」ではありません。頭の中に浮かんだ出来事です。思考を観察するとは、思考が来ては去るのをただ見ていることです——思考に乗っ取られず、思考を追い払おうともせず。
+        </p>
+        <!-- 思考の観察イラスト（空・雲） -->
+        <svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:320px;display:block;margin:0 auto 10px;border-radius:12px;">
+          <defs>
+            <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#B8D8F0"/>
+              <stop offset="100%" stop-color="#D8EEF8"/>
+            </linearGradient>
+          </defs>
+          <rect width="320" height="120" fill="url(#skyGrad)" rx="12"/>
+          <!-- 雲1（思考） -->
+          <g opacity="0.9">
+            <ellipse cx="70" cy="45" rx="28" ry="16" fill="#fff"/>
+            <ellipse cx="55" cy="50" rx="18" ry="13" fill="#fff"/>
+            <ellipse cx="88" cy="50" rx="18" ry="12" fill="#fff"/>
+            <text x="70" y="51" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9" fill="#5A7A9A">「失敗した」</text>
+          </g>
+          <!-- 雲2（思考・薄め＝流れていく） -->
+          <g opacity="0.55">
+            <ellipse cx="210" cy="38" rx="32" ry="15" fill="#fff"/>
+            <ellipse cx="194" cy="44" rx="20" ry="12" fill="#fff"/>
+            <ellipse cx="230" cy="43" rx="20" ry="11" fill="#fff"/>
+            <text x="210" y="44" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9" fill="#7A9ABB">「どうせダメだ」</text>
+          </g>
+          <!-- 雲3（薄く遠ざかる） -->
+          <g opacity="0.25">
+            <ellipse cx="290" cy="55" rx="24" ry="12" fill="#fff"/>
+            <ellipse cx="278" cy="60" rx="14" ry="10" fill="#fff"/>
+          </g>
+          <!-- 山（観察者） -->
+          <polygon points="140,110 170,65 200,110" fill="#8ABACC" opacity="0.6"/>
+          <polygon points="155,110 178,72 205,110" fill="#6A9AAC" opacity="0.5"/>
+          <!-- 地平線 -->
+          <line x1="0" y1="100" x2="320" y2="100" stroke="#8ABACC" stroke-width="1" opacity="0.4"/>
+          <!-- キャプション -->
+          <text x="160" y="115" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9" fill="#5A7A9A">思考は空に浮かぶ雲——来ては去る</text>
+        </svg>
+        <p class="theory-text" style="margin-top:8px;">
+          山の上に立って、遥か下の岩（自分の感情）を見下ろすように、思考から少し距離を置いて観察することができます。
+        </p>
+      </div>
+
+
+      <div class="theory-section">
+        <h4>心を次のようなイメージで観察する</h4>
+        <p class="theory-text" style="margin-bottom:12px;">
+          自分の心をある「場所」として想像すると、思考や感情が来ては去るのを観察しやすくなります。
+        </p>
+        <div class="mind-metaphor-grid">
+
+          <!-- ベルトコンベア -->
+          <div class="metaphor-card" style="background:#FFF8EC;border-color:#E8C878;">
+            <div class="metaphor-illust">
+              <svg viewBox="0 0 120 70" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:120px;">
+                <rect x="5" y="30" width="110" height="14" rx="7" fill="#D0B870" opacity="0.7"/>
+                <circle cx="18" cy="37" r="10" fill="#B09050" opacity="0.8"/>
+                <circle cx="102" cy="37" r="10" fill="#B09050" opacity="0.8"/>
+                <rect x="28" y="28" width="22" height="12" rx="3" fill="#E8A855" opacity="0.9"/>
+                <text x="39" y="37" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#5A3A10">思考</text>
+                <rect x="58" y="28" width="22" height="12" rx="3" fill="#C16A7F" opacity="0.7"/>
+                <text x="69" y="37" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#fff">感情</text>
+                <!-- 矢印 -->
+                <text x="105" y="25" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#B09050" opacity="0.6">→</text>
+                <!-- 観察者 -->
+                <circle cx="60" cy="60" r="5" fill="#6A9A7A"/>
+                <text x="60" y="68" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#4A7A5A">あなた</text>
+              </svg>
+            </div>
+            <div class="metaphor-name" style="color:#B07020;">ベルトコンベア</div>
+            <div class="metaphor-desc">思考・感情をベルトの上の箱として観察。箱に乗らず、ただ眺める。</div>
+          </div>
+
+          <!-- 川 -->
+          <div class="metaphor-card" style="background:#EAF4F8;border-color:#B0CCD8;">
+            <div class="metaphor-illust">
+              <svg viewBox="0 0 120 70" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:120px;">
+                <defs>
+                  <linearGradient id="riverG" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#A8D8F0"/>
+                    <stop offset="100%" stop-color="#C8EAF8"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0,25 Q40,18 80,28 Q110,34 120,25 L120,50 Q80,57 40,47 Q10,40 0,50Z" fill="url(#riverG)" opacity="0.8"/>
+                <!-- 葉（思考・感情） -->
+                <ellipse cx="30" cy="36" rx="10" ry="5" fill="#8ABB7A" opacity="0.85" transform="rotate(-15,30,36)"/>
+                <text x="30" y="39" text-anchor="middle" font-family="sans-serif" font-size="6.5" fill="#2A5A20">思考</text>
+                <ellipse cx="75" cy="38" rx="10" ry="5" fill="#C16A7F" opacity="0.75" transform="rotate(10,75,38)"/>
+                <text x="75" y="41" text-anchor="middle" font-family="sans-serif" font-size="6.5" fill="#fff">感情</text>
+                <!-- 岸の観察者 -->
+                <rect x="50" y="55" width="20" height="12" rx="3" fill="#D8EEF0" opacity="0.6"/>
+                <text x="60" y="64" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#2D6A7F">あなた（岸）</text>
+              </svg>
+            </div>
+            <div class="metaphor-name" style="color:#2D6A7F;">川</div>
+            <div class="metaphor-desc">思考・感情は川を流れる葉や舟。岸に座って眺め、舟に飛び乗らない。</div>
+          </div>
+
+          <!-- 空と雲 -->
+          <div class="metaphor-card" style="background:#F4F2FB;border-color:#A090CC;">
+            <div class="metaphor-illust">
+              <svg viewBox="0 0 120 70" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:120px;">
+                <defs>
+                  <linearGradient id="skyG2" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#C0C8F0"/>
+                    <stop offset="100%" stop-color="#E0E4F8"/>
+                  </linearGradient>
+                </defs>
+                <rect width="120" height="70" fill="url(#skyG2)" rx="6"/>
+                <ellipse cx="35" cy="28" rx="20" ry="11" fill="#fff" opacity="0.9"/>
+                <ellipse cx="25" cy="33" rx="13" ry="9" fill="#fff" opacity="0.9"/>
+                <ellipse cx="47" cy="33" rx="13" ry="8" fill="#fff" opacity="0.9"/>
+                <text x="35" y="33" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#6A6AAA">思考</text>
+                <ellipse cx="88" cy="22" rx="16" ry="9" fill="#fff" opacity="0.55"/>
+                <ellipse cx="80" cy="27" rx="10" ry="7" fill="#fff" opacity="0.55"/>
+                <text x="88" y="27" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#8A8ACC">感情</text>
+                <!-- 地面・観察者 -->
+                <rect x="0" y="58" width="120" height="12" fill="#C0B8E0" opacity="0.35"/>
+                <text x="60" y="67" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#4A4A8A">あなた（地面から空を見上げる）</text>
+              </svg>
+            </div>
+            <div class="metaphor-name" style="color:#4A5BA8;">空と雲</div>
+            <div class="metaphor-desc">心は空、思考・感情は雲。雲は来ては去る。空そのものは変わらない。</div>
+          </div>
+
+          <!-- 列車の貨物車両 -->
+          <div class="metaphor-card" style="background:#EEF7F2;border-color:#8ABB9A;">
+            <div class="metaphor-illust">
+              <svg viewBox="0 0 120 70" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:120px;">
+                <!-- レール -->
+                <line x1="0" y1="55" x2="120" y2="55" stroke="#8A9A8A" stroke-width="2.5"/>
+                <line x1="0" y1="60" x2="120" y2="60" stroke="#8A9A8A" stroke-width="2.5"/>
+                <line x1="10" y1="53" x2="10" y2="62" stroke="#6A7A6A" stroke-width="1.5"/>
+                <line x1="30" y1="53" x2="30" y2="62" stroke="#6A7A6A" stroke-width="1.5"/>
+                <line x1="50" y1="53" x2="50" y2="62" stroke="#6A7A6A" stroke-width="1.5"/>
+                <line x1="70" y1="53" x2="70" y2="62" stroke="#6A7A6A" stroke-width="1.5"/>
+                <line x1="90" y1="53" x2="90" y2="62" stroke="#6A7A6A" stroke-width="1.5"/>
+                <line x1="110" y1="53" x2="110" y2="62" stroke="#6A7A6A" stroke-width="1.5"/>
+                <!-- 車両1 -->
+                <rect x="5" y="35" width="32" height="18" rx="3" fill="#5A9E7A" opacity="0.85"/>
+                <circle cx="14" cy="55" r="4" fill="#3A6A5A"/>
+                <circle cx="30" cy="55" r="4" fill="#3A6A5A"/>
+                <text x="21" y="47" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#fff">思考</text>
+                <!-- 車両2 -->
+                <rect x="45" y="35" width="32" height="18" rx="3" fill="#C16A7F" opacity="0.75"/>
+                <circle cx="54" cy="55" r="4" fill="#8A3A4A"/>
+                <circle cx="70" cy="55" r="4" fill="#8A3A4A"/>
+                <text x="61" y="47" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#fff">感情</text>
+                <!-- 矢印 -->
+                <text x="108" y="44" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#8A9A8A">→</text>
+                <!-- 観察者 -->
+                <text x="60" y="68" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#3A6A4A">あなた（線路脇から眺める）</text>
+              </svg>
+            </div>
+            <div class="metaphor-name" style="color:#3A7A5A;">列車の貨物車両</div>
+            <div class="metaphor-desc">思考・感情は通り過ぎる貨物車両。ラベルを読みながら、列車に飛び乗らない。</div>
+          </div>
+
+        </div>
+        <div style="background:#F4F2FB;border-radius:10px;padding:10px 14px;border:1px solid #C0B0D8;font-size:12px;color:#4A4A7A;line-height:1.7;margin-top:4px;">
+          💡 どのメタファーが自分にしっくりくるか、試してみましょう。
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 練習メニュータブ -->
+    <div class="detail-tab-content" id="dtabcontent-practice">
+      <p style="font-size:13px;color:#6A8A96;margin-bottom:4px;line-height:1.7;">感覚ごとの練習からやってみるものを選びましょう。</p>
+      <p style="font-size:11px;color:#9AABBC;margin-bottom:14px;">カテゴリをタップして展開できます</p>
+      <div id="observe-accordion"></div>
+      <button class="practice-save-btn" id="observe-save-btn" onclick="saveObservePractice()">今日の練習を記録する</button>
+      <div id="observe-save-msg" style="display:none;text-align:center;margin-top:10px;font-size:13px;color:#5AA87A;font-weight:600;">✓ 記録しました</div>
+    </div>
+  `;
+
+  document.getElementById("detail-body").innerHTML = html;
+  renderObserveAccordion();
+}
+
+function renderObserveAccordion() {
+  const el = document.getElementById("observe-accordion");
+  if (!el) return;
+  el.innerHTML = observePracticeCategories.map(cat => `
+    <div class="accordion-item">
+      <button class="accordion-header" id="acc-btn-${cat.id}" onclick="toggleAccordion('${cat.id}')">
+        <span class="accordion-icon">${cat.icon}</span>
+        <span class="accordion-title">${cat.label}</span>
+        <span style="font-size:11px;color:#9AABBC;margin-right:6px;">${observeChecked.has(cat.id) ? '✓ 選択中' : ''}</span>
+        <span class="accordion-arrow">▼</span>
+      </button>
+      <div class="accordion-body" id="acc-body-${cat.id}">
+        <div class="accordion-desc">以下の練習から試してみましょう：</div>
+        ${cat.items.map((item, i) => `
+          <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;">
+            <div onclick="toggleObserveItem('${cat.id}-${i}')" style="width:20px;height:20px;border-radius:5px;border:2px solid ${cat.color}44;background:${observeChecked.has(cat.id+'-'+i)?cat.color:'#fff'};color:#fff;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:1px;transition:all 0.15s;">
+              ${observeChecked.has(cat.id+'-'+i)?'✓':''}
+            </div>
+            <span style="font-size:13px;color:#2A4A55;line-height:1.7;">${item}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleAccordion(id) {
+  const btn = document.getElementById(`acc-btn-${id}`);
+  const body = document.getElementById(`acc-body-${id}`);
+  if (!btn || !body) return;
+  const isOpen = body.classList.contains('open');
+  // 全部閉じる
+  document.querySelectorAll('.accordion-body').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.accordion-header').forEach(b => b.classList.remove('open'));
+  if (!isOpen) { body.classList.add('open'); btn.classList.add('open'); }
+}
+
+function toggleObserveItem(key) {
+  if (observeChecked.has(key)) observeChecked.delete(key);
+  else observeChecked.add(key);
+  renderObserveAccordion();
+  // 展開状態を維持
+  const catId = key.split('-').slice(0, -1).join('-');
+  const body = document.getElementById(`acc-body-${catId}`);
+  const btn = document.getElementById(`acc-btn-${catId}`);
+  if (body) body.classList.add('open');
+  if (btn) btn.classList.add('open');
+}
+
+function saveObservePractice() {
+  if (observeChecked.size === 0) return;
+  const today = new Date().toISOString().slice(0, 10);
+  const recs = loadRecords();
+  const idx = recs.findIndex(r => r.date === today);
+  const entry = idx >= 0 ? recs[idx] : { date: today, emotionScores: {}, urgeScore: 0, skillsUsed: [], note: "" };
+  entry.observePractices = [...observeChecked];
+  if (!entry.skillsUsed.includes("observe")) entry.skillsUsed.push("observe");
+  if (idx >= 0) recs[idx] = entry; else recs.unshift(entry);
+  saveRecords(recs);
+  const msg = document.getElementById("observe-save-msg");
+  if (msg) { msg.style.display = "block"; setTimeout(() => msg.style.display = "none", 2500); }
+}
+
+// ── 参加する：練習カテゴリ ────────────────────────────────────
+const participatePracticeCategories = [
+  { id:"part-music", icon:"🎵", label:"音楽やリズムに参加する", color:"#C16A7F", bg:"#FBEEEF",
+    items:["音楽に合わせて踊る","流れている音楽に合わせて歌う","シャワーを浴びながら歌う","テレビを見ながら歌ったり踊ったりする","ベッドから飛び出して、着替える前に踊ったり歌ったりする","友人とカラオケに行く、またはカラオケバーで歌う"] },
+  { id:"part-body", icon:"🏃", label:"体を動かすことに参加する", color:"#5A9E7A", bg:"#EEF7F2",
+    items:["ランニングをして、走ることだけに意識を向ける","スポーツをプレーして、そのことに完全に没頭する","ダンスのクラスを受講する","即興演劇のクラスを受講する"] },
+  { id:"part-talk", icon:"💬", label:"人との関わりに参加する", color:"#4A5BA8", bg:"#F0F4FF",
+    items:["相手が話していることに、全神経を集中させて聞く","会話の内容そのものになったつもりで、途中で他のことを考えない"] },
+  { id:"part-word", icon:"🌬", label:"呼吸や言葉に溶け込む", color:"#2D6A7F", bg:"#EAF4F8",
+    items:["呼吸を数えながら、「1」と数えるときは自分が「1」そのものになる。「2」のときは「2」そのものになる、というように続ける","一つの言葉をゆっくりと繰り返し唱え、その言葉そのものになる"] },
+  { id:"part-connect", icon:"🌳", label:"つながりを感じながら参加する", color:"#B07020", bg:"#FFF3E0",
+    items:["床や地面に触れている感覚に注意を向け、自分を支えてくれていることを感じる","座っている椅子に注意を向け、体を受け止め支えてくれていることを感じる","ベッドのシーツや布団に包まれる感覚に注意を向け、その暖かさと心地よさを感じる","木を抱きしめ、自分と木がともに太陽の光を浴び、空気に包まれ、大地に支えられていることを感じる"] },
+];
+
+const participateChecked = new Set();
+
+function renderParticipateDetail(sk) {
+  const html = `
+    <span class="category-badge cat-what">${sk.category}</span>
+    <h2 style="font-family:'Noto Serif JP',serif;font-size:24px;color:#1A3A45;margin:8px 0 4px;font-weight:700;">${sk.name}</h2>
+    <p style="color:#5A8A9F;font-size:14px;margin:0 0 14px;">${sk.subtitle}</p>
+    ${intensityHTML(sk.intensity)}
+    <div class="detail-tabs" style="margin-top:16px;">
+      <button class="detail-tab-btn active" id="dtab-skill" onclick="switchDetailTab('skill')">スキル解説</button>
+      <button class="detail-tab-btn" id="dtab-theory" onclick="switchDetailTab('theory')">理論・背景</button>
+      <button class="detail-tab-btn" id="dtab-practice" onclick="switchDetailTab('practice')">練習メニュー</button>
+    </div>
+
+    <!-- スキル解説タブ -->
+    <div class="detail-tab-content active" id="dtabcontent-skill">
+      <div class="detail-desc">${sk.description}</div>
+      <h3 class="detail-h3">練習の手順</h3>
+      <ol class="howto-list">${sk.howto.map(h=>`<li>${h}</li>`).join("")}</ol>
+      <div class="when-box"><span class="when-label">💡 こんなときに</span><span class="when-text">${sk.when}</span></div>
+    </div>
+
+    <!-- 理論・背景タブ -->
+    <div class="detail-tab-content" id="dtabcontent-theory">
+
+      <div class="theory-section">
+        <h4>「参加する」とは何か</h4>
+        <p class="theory-text" style="margin-bottom:12px;">
+          参加するとは、今この瞬間の活動に<strong>完全に飛び込む</strong>ことです。踊ること、掃除すること、友人と話すこと、喜びや悲しみを感じること——今起きていることから自分を切り離さず、その体験そのものになります。
+        </p>
+        <p class="theory-text">
+          自意識を手放し、活動と一つになります。「うまくやれているか」を気にする自分を脇に置いて、注意のすべてをその瞬間に投げ入れます。
+        </p>
+      </div>
+
+      <div class="theory-section">
+        <h4>「観察する・描写する」と「参加する」の違い</h4>
+        <p class="theory-text" style="margin-bottom:10px;">観察・描写は体験から一歩下がって見る練習でした。参加はその逆——一歩踏み込んで、体験そのものになる練習です。</p>
+        <div class="observe-contrast">
+          <div class="observe-contrast-card" style="background:#EAF4F8;border:1px solid #B0CCD8;">
+            <div style="font-size:11px;font-weight:700;color:#2D6A7F;margin-bottom:6px;">観察・描写</div>
+            <div style="font-size:13px;color:#1A3A45;line-height:1.8;">体験から一歩下がる<br>気づき、言葉にする<br>「見ている自分」がいる</div>
+          </div>
+          <div class="observe-contrast-card" style="background:#FBEEEF;border:1px solid #E0B0BA;">
+            <div style="font-size:11px;font-weight:700;color:#C16A7F;margin-bottom:6px;">参加する</div>
+            <div style="font-size:13px;color:#1A3A45;line-height:1.8;">体験に飛び込む<br>自意識を手放す<br>「見ている自分」が消える</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="theory-section">
+        <h4>フロー体験としての参加</h4>
+        <p class="theory-text" style="margin-bottom:10px;">
+          「フロー」とは、退屈とは正反対の、大きな喜びとコントロール感を伴う最適な体験のことです。心理学ではこれを「至高体験」の重要な特徴のひとつと考えます。
+        </p>
+        <p class="theory-text" style="margin-bottom:10px;">
+          フローの状態では、行動が驚くほど楽になります。動き・速さ・容易さの感覚が研ぎ澄まされ、人生や自分のしていることがまるでダンスのように感じられ、大きな努力さえも楽なものに思えてきます。
+        </p>
+        <p class="theory-text">
+          スキーやランニングのような活動に完全に没頭したとき、大きな幸福感や恍惚感を得られることがあります。参加のスキルを練習することは、こうしたフロー体験に近づいていくことでもあります。
+        </p>
+      </div>
+
+      <div class="theory-section">
+        <h4>スキルフルに参加する</h4>
+        <p class="theory-text" style="margin-bottom:10px;">
+          参加は、思いつきで衝動的に行動することとは違います。DBTでは「賢明な心から直感的に行動し、その状況に必要なことだけを行う」参加のあり方を大切にします。
+        </p>
+        <p class="theory-text">
+          たとえるなら、熟練したダンサーがダンスフロアで音楽やパートナーと一体になりながら踊るように、自然に、力み過ぎず、流れに乗って自発的に応じることです。
+        </p>
+      </div>
+
+      <div class="theory-section">
+        <h4>なぜ参加する練習が大切なのか</h4>
+        <p class="theory-text">
+          慢性的な空虚感や、物事を心から楽しめない感覚がある人にとって、「参加する」は特に難しく、そして特に重要なスキルです。自分を評価する声から離れ、体験そのものに没頭することで、生き生きとした感覚を取り戻す助けになります。
+        </p>
+      </div>
+
+    </div>
+
+    <!-- 練習メニュータブ -->
+    <div class="detail-tab-content" id="dtabcontent-practice">
+      <p style="font-size:13px;color:#6A8A96;margin-bottom:4px;line-height:1.7;">カテゴリをタップして練習を選びましょう。</p>
+      <p style="font-size:11px;color:#9AABBC;margin-bottom:14px;">複数選択できます</p>
+      <div id="participate-accordion"></div>
+      <button class="practice-save-btn" id="participate-save-btn" onclick="saveParticipatePractice()">今日の練習を記録する</button>
+      <div id="participate-save-msg" style="display:none;text-align:center;margin-top:10px;font-size:13px;color:#5AA87A;font-weight:600;">✓ 記録しました</div>
+    </div>
+  `;
+
+  document.getElementById("detail-body").innerHTML = html;
+  renderParticipateAccordion();
+}
+
+function renderParticipateAccordion() {
+  const el = document.getElementById("participate-accordion");
+  if (!el) return;
+  el.innerHTML = participatePracticeCategories.map(cat => `
+    <div class="accordion-item">
+      <button class="accordion-header" id="acc-btn-${cat.id}" onclick="toggleAccordion('${cat.id}')">
+        <span class="accordion-icon">${cat.icon}</span>
+        <span class="accordion-title">${cat.label}</span>
+        <span style="font-size:11px;color:#9AABBC;margin-right:6px;">${participateChecked.has(cat.id) ? '✓ 選択中' : ''}</span>
+        <span class="accordion-arrow">▼</span>
+      </button>
+      <div class="accordion-body" id="acc-body-${cat.id}">
+        <div class="accordion-desc">以下の練習から試してみましょう：</div>
+        ${cat.items.map((item, i) => `
+          <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;">
+            <div onclick="toggleParticipateItem('${cat.id}-${i}')" style="width:20px;height:20px;border-radius:5px;border:2px solid ${cat.color}44;background:${participateChecked.has(cat.id+'-'+i)?cat.color:'#fff'};color:#fff;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:1px;transition:all 0.15s;">
+              ${participateChecked.has(cat.id+'-'+i)?'✓':''}
+            </div>
+            <span style="font-size:13px;color:#2A4A55;line-height:1.7;">${item}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleParticipateItem(key) {
+  if (participateChecked.has(key)) participateChecked.delete(key);
+  else participateChecked.add(key);
+  renderParticipateAccordion();
+  const catId = key.split('-').slice(0, -1).join('-');
+  const body = document.getElementById(`acc-body-${catId}`);
+  const btn = document.getElementById(`acc-btn-${catId}`);
+  if (body) body.classList.add('open');
+  if (btn) btn.classList.add('open');
+}
+
+function saveParticipatePractice() {
+  if (participateChecked.size === 0) return;
+  const today = new Date().toISOString().slice(0, 10);
+  const recs = loadRecords();
+  const idx = recs.findIndex(r => r.date === today);
+  const entry = idx >= 0 ? recs[idx] : { date: today, emotionScores: {}, urgeScore: 0, skillsUsed: [], note: "" };
+  entry.participatePractices = [...participateChecked];
+  if (!entry.skillsUsed.includes("participate")) entry.skillsUsed.push("participate");
+  if (idx >= 0) recs[idx] = entry; else recs.unshift(entry);
+  saveRecords(recs);
+  const msg = document.getElementById("participate-save-msg");
+  if (msg) { msg.style.display = "block"; setTimeout(() => msg.style.display = "none", 2500); }
+}
+
+// ── 判断しない：練習カテゴリ ────────────────────────────────────
+const nonjudgePracticeCategories = [
+  { id:"nj-notice", icon:"👁", label:"判断的な思考に気づく", color:"#2D6A7F", bg:"#EAF4F8",
+    items:["判断的な思考に気づいたとき、心の中で「判断的な思考が浮かんだ」と描写する","判断的な思考や発言がいくつ浮かんだか数えてみる（指を折る、紙にチェックを付けるなど）"] },
+  { id:"nj-replace", icon:"✍️", label:"判断を事実の描写に置き換える", color:"#B07020", bg:"#FFF3E0",
+    items:["判断的な思考や発言に気づいたら、事実の描写に置き換える","事実（何が起きたか）→結果（何が起きた結果か）→自分の感情（それをどう感じたか）の順に描写してみる","「最悪だ」を「私が望まない結果になった」のように言い換えてみる"] },
+  { id:"nj-express", icon:"🙂", label:"表情・姿勢・声のトーンに気づく", color:"#C16A7F", bg:"#FBEEEF",
+    items:["自分の判断的な表情・姿勢・声のトーン（心の中の声も含む）に気づく","判断的な表情・姿勢・声のトーンを、判断しないものに変えてみる"] },
+  { id:"nj-describe", icon:"📝", label:"出来事を非判断的に描写する", color:"#5A9E7A", bg:"#EEF7F2",
+    items:["今日あったことを誰かに、事実だけを使って判断せずに伝えてみる","感情を引き起こした出来事を、判断を使わずに書き出す","その日の重要な出来事を、判断を交えず一部始終描写する（環境で起きたこと・自分の思考・感情・行動を含めて）"] },
+  { id:"nj-understand", icon:"🤝", label:"怒りを感じる相手を理解する", color:"#4A5BA8", bg:"#F0F4FF",
+    items:["怒りを感じている相手を思い浮かべる。その人の視点から物事を見て、その人の感情・考え・恐れ・希望・これまでの経緯を想像してみる"] },
+];
+
+const nonjudgeChecked = new Set();
+
+function renderNonjudgeDetail(sk) {
+  const html = `
+    <span class="category-badge cat-how">${sk.category}</span>
+    <h2 style="font-family:'Noto Serif JP',serif;font-size:24px;color:#1A3A45;margin:8px 0 4px;font-weight:700;">${sk.name}</h2>
+    <p style="color:#5A8A9F;font-size:14px;margin:0 0 14px;">${sk.subtitle}</p>
+    ${intensityHTML(sk.intensity)}
+    <div class="detail-tabs" style="margin-top:16px;">
+      <button class="detail-tab-btn active" id="dtab-skill" onclick="switchDetailTab('skill')">スキル解説</button>
+      <button class="detail-tab-btn" id="dtab-theory" onclick="switchDetailTab('theory')">理論・背景</button>
+      <button class="detail-tab-btn" id="dtab-practice" onclick="switchDetailTab('practice')">練習メニュー</button>
+    </div>
+
+    <!-- スキル解説タブ -->
+    <div class="detail-tab-content active" id="dtabcontent-skill">
+      <div class="detail-desc">${sk.description}</div>
+      <h3 class="detail-h3">練習の手順</h3>
+      <ol class="howto-list">${sk.howto.map(h=>`<li>${h}</li>`).join("")}</ol>
+      <div class="when-box"><span class="when-label">💡 こんなときに</span><span class="when-text">${sk.when}</span></div>
+    </div>
+
+    <!-- 理論・背景タブ -->
+    <div class="detail-tab-content" id="dtabcontent-theory">
+
+      <div class="theory-section">
+        <h4>「判断しない」とは何か</h4>
+        <p class="theory-text" style="margin-bottom:12px;">
+          判断しないとは、現実を「良い・悪い」「価値がある・価値がない」といった評価を加えずに、<strong>あるがまま</strong>に描写することです。否定的な判断を肯定的な判断に変えることではありません。良し悪しの評価そのものを手放します。
+        </p>
+        <p class="theory-text" style="margin-bottom:10px;">
+          ここで大切なのは「識別」と「評価」の違いです。安全か危険か、有害か有益かを見分ける<strong>識別</strong>は必要で、手放しません。一方、そこに「良い」「悪い」という価値判断を<strong>付け加える</strong>のが評価であり、これを手放す練習をします。
+        </p>
+        <div class="observe-contrast">
+          <div class="observe-contrast-card" style="background:#EAF4F8;border:1px solid #B0CCD8;">
+            <div style="font-size:11px;font-weight:700;color:#2D6A7F;margin-bottom:6px;">識別（続ける）</div>
+            <div style="font-size:13px;color:#1A3A45;line-height:1.8;">安全か危険か<br>基準を満たすか満たさないか<br>事実としての違い</div>
+          </div>
+          <div class="observe-contrast-card" style="background:#FBEEEF;border:1px solid #E0B0BA;">
+            <div style="font-size:11px;font-weight:700;color:#C16A7F;margin-bottom:6px;">評価（手放す）</div>
+            <div style="font-size:13px;color:#1A3A45;line-height:1.8;">良い・悪い<br>価値がある・価値がない<br>観察者の心が加えたもの</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="theory-section">
+        <h4>虎に食べられる男の物語</h4>
+        <div class="when-box" style="margin-top:4px;">
+          <span class="when-text">
+            一匹の虎が、男を食べようと追いかけている場面を想像してみましょう。男はきっと「いやだ、いやだ、これはまずい！」と思うでしょう。虎に捕まってしまったら、家族は「ひどい、最悪だ」と言うかもしれません。<br><br>
+            けれど、虎は何と言うでしょうか？——「美味い、美味い」<br><br>
+            同じ出来事でも、それを「良い」か「悪い」かに評価しているのは、出来事そのものではなく、それを見ている心の側だということを、この物語は教えてくれます。
+          </span>
+        </div>
+      </div>
+
+      <div class="theory-section">
+        <h4>なぜ判断しないのか</h4>
+        <p class="theory-text" style="margin-bottom:8px;"><strong>① 判断は人間関係に悪影響を及ぼす。</strong>ネガティブな判断は対立を生み、大切な人との関係を損ないます。自分を判断してくる相手を好きになる人はほとんどいません。</p>
+        <p class="theory-text" style="margin-bottom:8px;"><strong>② 判断は情動に悪影響を及ぼす。</strong>「良い・悪い」の評価を加えると、その対象に対する自分の情動反応が大きく揺さぶられます。</p>
+        <p class="theory-text" style="margin-bottom:8px;"><strong>③ 原因を変える方が判断するより効果的。</strong>物事に「悪い」「起こるべきではなかった」と叫んでも、それ自体は何も変えません。変化を起こすには、原因を理解し、はたらきかける方がずっと効果的です。</p>
+        <p class="theory-text"><strong>④ 判断しないことはマインドフルネスの基本。</strong>あらゆるマインドフルネスに基づく治療や、瞑想の伝統に共通する中核的な姿勢です。</p>
+      </div>
+
+      <div class="theory-section">
+        <h4>「べき」を手放す</h4>
+        <p class="theory-text">
+          判断しないということは、「べき」という言葉を手放すことでもあります。世界がどうあるべきかを定義し、現実に要求することをやめ、代わりに「私はこう感じている」「私はこうしたいと思っている」という、自分の感情や欲求の描写に置き換えます。
+        </p>
+      </div>
+
+      <div class="theory-section">
+        <h4>よくある誤解</h4>
+        <p class="theory-text" style="margin-bottom:8px;">判断しないことは、<strong>何でも肯定すること</strong>ではありません。事実を描写した上で、その原因を理解しようとする方が、変化を起こすうえで効果的だという考え方です。</p>
+        <p class="theory-text" style="margin-bottom:8px;">判断しないことは、<strong>結果を無視すること</strong>でもありません。行動や出来事がもたらす結果に気づき、それを人に伝えることは、判断しないままでも十分にできます。</p>
+        <p class="theory-text">そして最後に——判断している自分がダメだとか悪いなどと、判断していることを判断しないようにしましょう。自分が判断していることに気づいたら、その気づき自体をただ観察するのです。</p>
+      </div>
+
+    </div>
+
+    <!-- 練習メニュータブ -->
+    <div class="detail-tab-content" id="dtabcontent-practice">
+      <p style="font-size:13px;color:#6A8A96;margin-bottom:4px;line-height:1.7;">カテゴリをタップして練習を選びましょう。</p>
+      <p style="font-size:11px;color:#9AABBC;margin-bottom:14px;">複数選択できます</p>
+      <div id="nonjudge-accordion"></div>
+      <button class="practice-save-btn" id="nonjudge-save-btn" onclick="saveNonjudgePractice()">今日の練習を記録する</button>
+      <div id="nonjudge-save-msg" style="display:none;text-align:center;margin-top:10px;font-size:13px;color:#5AA87A;font-weight:600;">✓ 記録しました</div>
+    </div>
+  `;
+
+  document.getElementById("detail-body").innerHTML = html;
+  renderNonjudgeAccordion();
+}
+
+function renderNonjudgeAccordion() {
+  const el = document.getElementById("nonjudge-accordion");
+  if (!el) return;
+  el.innerHTML = nonjudgePracticeCategories.map(cat => `
+    <div class="accordion-item">
+      <button class="accordion-header" id="acc-btn-${cat.id}" onclick="toggleAccordion('${cat.id}')">
+        <span class="accordion-icon">${cat.icon}</span>
+        <span class="accordion-title">${cat.label}</span>
+        <span style="font-size:11px;color:#9AABBC;margin-right:6px;">${nonjudgeChecked.has(cat.id) ? '✓ 選択中' : ''}</span>
+        <span class="accordion-arrow">▼</span>
+      </button>
+      <div class="accordion-body" id="acc-body-${cat.id}">
+        <div class="accordion-desc">以下の練習から試してみましょう：</div>
+        ${cat.items.map((item, i) => `
+          <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;">
+            <div onclick="toggleNonjudgeItem('${cat.id}-${i}')" style="width:20px;height:20px;border-radius:5px;border:2px solid ${cat.color}44;background:${nonjudgeChecked.has(cat.id+'-'+i)?cat.color:'#fff'};color:#fff;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:1px;transition:all 0.15s;">
+              ${nonjudgeChecked.has(cat.id+'-'+i)?'✓':''}
+            </div>
+            <span style="font-size:13px;color:#2A4A55;line-height:1.7;">${item}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleNonjudgeItem(key) {
+  if (nonjudgeChecked.has(key)) nonjudgeChecked.delete(key);
+  else nonjudgeChecked.add(key);
+  renderNonjudgeAccordion();
+  const catId = key.split('-').slice(0, -1).join('-');
+  const body = document.getElementById(`acc-body-${catId}`);
+  const btn = document.getElementById(`acc-btn-${catId}`);
+  if (body) body.classList.add('open');
+  if (btn) btn.classList.add('open');
+}
+
+function saveNonjudgePractice() {
+  if (nonjudgeChecked.size === 0) return;
+  const today = new Date().toISOString().slice(0, 10);
+  const recs = loadRecords();
+  const idx = recs.findIndex(r => r.date === today);
+  const entry = idx >= 0 ? recs[idx] : { date: today, emotionScores: {}, urgeScore: 0, skillsUsed: [], note: "" };
+  entry.nonjudgePractices = [...nonjudgeChecked];
+  if (!entry.skillsUsed.includes("nonjudgmental")) entry.skillsUsed.push("nonjudgmental");
+  if (idx >= 0) recs[idx] = entry; else recs.unshift(entry);
+  saveRecords(recs);
+  const msg = document.getElementById("nonjudge-save-msg");
+  if (msg) { msg.style.display = "block"; setTimeout(() => msg.style.display = "none", 2500); }
+}
+
+// ── ワン・マインドフルに：練習カテゴリ ────────────────────────────────
+const oneMindfulPracticeCategories = [
+  { id:"om-daily", icon:"🍵", label:"日常の動作に意識を向ける", color:"#2D6A7F", bg:"#EAF4F8",
+    items:["お茶やコーヒーを入れる動作の一つひとつに意識を向ける","お皿を洗いながら、その動作に意識を向ける。一枚一枚を大切なものだと考えてみる","衣類を手洗いしながら、手や腕の動きひとつひとつに意識を向ける","家の掃除を「片付け」「拭き掃除」「掃き掃除」など段階に分け、一つひとつの作業に十分な時間をかける","30〜45分かけてゆっくりお風呂に入り、肌に触れる水の流れひとつひとつに意識を向ける"] },
+  { id:"om-meditation", icon:"🧘", label:"呼吸とともに一点に集中する", color:"#B07020", bg:"#FFF3E0",
+    items:["背筋を伸ばして座り、目を閉じるか少し開けて近くの一点を見つめる。息を吸うときも吐くときも、静かに「ひとつ」と心の中で唱える。心がそれたら、そっと「ひとつ」に戻す"] },
+  { id:"om-single", icon:"☝️", label:"一度に一つの活動に取り組む", color:"#5A9E7A", bg:"#EEF7F2",
+    items:["運転している時は、運転することだけをする","歩いている時は、歩くことだけをする","食べている時は、食べることだけをする（テレビや本を見ながら食べない）","会議や作業に取り組んでいる時は、それだけに専念する"] },
+  { id:"om-return", icon:"↩️", label:"過去や未来に気づいたら、今に戻る", color:"#4A5BA8", bg:"#F0F4FF",
+    items:["過去の出来事を考えていることに気づいたら、それをただ「過去について考えている」と気づき、今していることに注意を戻す","未来の心配をしていることに気づいたら、それをただ「未来について考えている」と気づき、今していることに注意を戻す","心配ごとがあるときは、あらかじめ「心配するための時間」を決めておき、それ以外の時間は今に注意を戻す"] },
+];
+
+const oneMindfulChecked = new Set();
+
+function renderOneMindfulDetail(sk) {
+  const html = `
+    <span class="category-badge cat-how">${sk.category}</span>
+    <h2 style="font-family:'Noto Serif JP',serif;font-size:24px;color:#1A3A45;margin:8px 0 4px;font-weight:700;">${sk.name}</h2>
+    <p style="color:#5A8A9F;font-size:14px;margin:0 0 14px;">${sk.subtitle}</p>
+    ${intensityHTML(sk.intensity)}
+    <div class="detail-tabs" style="margin-top:16px;">
+      <button class="detail-tab-btn active" id="dtab-skill" onclick="switchDetailTab('skill')">スキル解説</button>
+      <button class="detail-tab-btn" id="dtab-theory" onclick="switchDetailTab('theory')">理論・背景</button>
+      <button class="detail-tab-btn" id="dtab-practice" onclick="switchDetailTab('practice')">練習メニュー</button>
+    </div>
+
+    <!-- スキル解説タブ -->
+    <div class="detail-tab-content active" id="dtabcontent-skill">
+      <div class="detail-desc">${sk.description}</div>
+      <h3 class="detail-h3">練習の手順</h3>
+      <ol class="howto-list">${sk.howto.map(h=>`<li>${h}</li>`).join("")}</ol>
+      <div class="when-box"><span class="when-label">💡 こんなときに</span><span class="when-text">${sk.when}</span></div>
+    </div>
+
+    <!-- 理論・背景タブ -->
+    <div class="detail-tab-content" id="dtabcontent-theory">
+
+      <div class="theory-section">
+        <h4>「ワン・マインドフルに」とは何か</h4>
+        <p class="theory-text" style="margin-bottom:12px;">
+          ワン・マインドフルに行動するとは、今この瞬間に注意を集中し、一つの課題や行動に全身全霊で取り組むことです。ここには二つの考え方が含まれています。
+        </p>
+        <div class="observe-contrast">
+          <div class="observe-contrast-card" style="background:#EAF4F8;border:1px solid #B0CCD8;">
+            <div style="font-size:11px;font-weight:700;color:#2D6A7F;margin-bottom:6px;">① 今に完全に存在する</div>
+            <div style="font-size:13px;color:#1A3A45;line-height:1.8;">過去でも未来でもなく<br>「この瞬間」に<br>自分の人生を生きる</div>
+          </div>
+          <div class="observe-contrast-card" style="background:#FBEEEF;border:1px solid #E0B0BA;">
+            <div style="font-size:11px;font-weight:700;color:#C16A7F;margin-bottom:6px;">② 一度に一つのことをする</div>
+            <div style="font-size:13px;color:#1A3A45;line-height:1.8;">一つの活動に<br>全身全霊を傾ける<br>マルチタスクをしない</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="theory-section">
+        <h4>過去は終わっている、未来はまだ存在しない</h4>
+        <p class="theory-text" style="margin-bottom:10px;">
+          過去は終わったことであり、今この瞬間には存在しません。過去のことを考えたり、そのイメージが浮かんだりすると、強い感情が生じることがあります。けれど、その思考やイメージ、感情が生じているのは、他でもない<strong>今、この瞬間</strong>だということに気づくことが大切です。
+        </p>
+        <p class="theory-text">
+          未来についても同じです。未来はまだ存在していません。未来への不安や計画で頭がいっぱいになることがありますが、それを考えている「今」から離れないようにします。もちろん未来の計画を立てること自体は構いません。ただそのときは、「今、自分は計画を立てているのだ」と意識しながら行います。
+        </p>
+      </div>
+
+      <div class="theory-section">
+        <h4>心配するための時間</h4>
+        <div class="when-box" style="margin-top:4px;">
+          <span class="when-text">
+            慢性的な心配に悩む人向けの治療法に、こんな方法があります。毎日決まった時間・決まった場所で30分だけ「心配する時間」を取り、その時間はとことん心配ごとに向き合います。それ以外の時間に心配が浮かんだら、「それは心配タイムに考えよう」と自分に言い聞かせ、今していることに注意を戻します。<br><br>
+            眠れないときも同じ発想で、寝る前に翌日やるべきことをすべて書き出しておくと、そのことが気になって目が覚める、ということが少なくなります。
+          </span>
+        </div>
+      </div>
+
+      <div class="theory-section">
+        <h4>なぜワン・マインドフルに行動するのか</h4>
+        <p class="theory-text" style="margin-bottom:8px;"><strong>① 今この瞬間の苦痛だけで、誰にとっても十分。</strong>過去の苦しみを反芻したり、未来の苦しみを恐れたりすると、今の苦痛がさらに大きくなってしまいます。</p>
+        <p class="theory-text" style="margin-bottom:8px;"><strong>② マルチタスクは非効率的。</strong>一度に二つのことをこなそうとしても、時間の節約にはならず、むしろ物事を素早くこなす力を削いでしまうことが研究でわかっています。</p>
+        <p class="theory-text"><strong>③ 人生や人間関係、美しいものは過ぎ去っていく。</strong>心ここにあらずのまま今を生きていると、大切なことの多くを体験しないまま、あっという間に時間が過ぎてしまいます。</p>
+      </div>
+
+      <div class="theory-section">
+        <h4>実践のコツ：一度にひとつのことだけをする</h4>
+        <p class="theory-text" style="margin-bottom:10px;">
+          一度に一つのことをするというのは、多くの人が普段やりたがる方法とは正反対です。たくさんのことを同時にこなせば多くを達成できると考えがちですが、コツは、今やっていることに注意を分割せず、完全に心を向けることです。
+        </p>
+        <p class="theory-text">
+          「洗うべきお皿は5枚あっても、一度に洗えるのは1枚だけ」——これがワン・マインドフルネスの本質です。なお、一つのことに集中することは、複数の作業を順番に切り替えられないという意味ではありません。どんな行動をしていても、その行動に注意を分割せず、完全に向けるということです。
+        </p>
+      </div>
+
+    </div>
+
+    <!-- 練習メニュータブ -->
+    <div class="detail-tab-content" id="dtabcontent-practice">
+      <p style="font-size:13px;color:#6A8A96;margin-bottom:4px;line-height:1.7;">カテゴリをタップして練習を選びましょう。</p>
+      <p style="font-size:11px;color:#9AABBC;margin-bottom:14px;">複数選択できます</p>
+      <div id="onemindful-accordion"></div>
+      <button class="practice-save-btn" id="onemindful-save-btn" onclick="saveOneMindfulPractice()">今日の練習を記録する</button>
+      <div id="onemindful-save-msg" style="display:none;text-align:center;margin-top:10px;font-size:13px;color:#5AA87A;font-weight:600;">✓ 記録しました</div>
+    </div>
+  `;
+
+  document.getElementById("detail-body").innerHTML = html;
+  renderOneMindfulAccordion();
+}
+
+function renderOneMindfulAccordion() {
+  const el = document.getElementById("onemindful-accordion");
+  if (!el) return;
+  el.innerHTML = oneMindfulPracticeCategories.map(cat => `
+    <div class="accordion-item">
+      <button class="accordion-header" id="acc-btn-${cat.id}" onclick="toggleAccordion('${cat.id}')">
+        <span class="accordion-icon">${cat.icon}</span>
+        <span class="accordion-title">${cat.label}</span>
+        <span style="font-size:11px;color:#9AABBC;margin-right:6px;">${oneMindfulChecked.has(cat.id) ? '✓ 選択中' : ''}</span>
+        <span class="accordion-arrow">▼</span>
+      </button>
+      <div class="accordion-body" id="acc-body-${cat.id}">
+        <div class="accordion-desc">以下の練習から試してみましょう：</div>
+        ${cat.items.map((item, i) => `
+          <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;">
+            <div onclick="toggleOneMindfulItem('${cat.id}-${i}')" style="width:20px;height:20px;border-radius:5px;border:2px solid ${cat.color}44;background:${oneMindfulChecked.has(cat.id+'-'+i)?cat.color:'#fff'};color:#fff;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:1px;transition:all 0.15s;">
+              ${oneMindfulChecked.has(cat.id+'-'+i)?'✓':''}
+            </div>
+            <span style="font-size:13px;color:#2A4A55;line-height:1.7;">${item}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleOneMindfulItem(key) {
+  if (oneMindfulChecked.has(key)) oneMindfulChecked.delete(key);
+  else oneMindfulChecked.add(key);
+  renderOneMindfulAccordion();
+  const catId = key.split('-').slice(0, -1).join('-');
+  const body = document.getElementById(`acc-body-${catId}`);
+  const btn = document.getElementById(`acc-btn-${catId}`);
+  if (body) body.classList.add('open');
+  if (btn) btn.classList.add('open');
+}
+
+function saveOneMindfulPractice() {
+  if (oneMindfulChecked.size === 0) return;
+  const today = new Date().toISOString().slice(0, 10);
+  const recs = loadRecords();
+  const idx = recs.findIndex(r => r.date === today);
+  const entry = idx >= 0 ? recs[idx] : { date: today, emotionScores: {}, urgeScore: 0, skillsUsed: [], note: "" };
+  entry.oneMindfulPractices = [...oneMindfulChecked];
+  if (!entry.skillsUsed.includes("one-mindfully")) entry.skillsUsed.push("one-mindfully");
+  if (idx >= 0) recs[idx] = entry; else recs.unshift(entry);
+  saveRecords(recs);
+  const msg = document.getElementById("onemindful-save-msg");
+  if (msg) { msg.style.display = "block"; setTimeout(() => msg.style.display = "none", 2500); }
+}
+
+// ── 効果的に：練習カテゴリ ──────────────────────────────────────
+const effectivePracticeCategories = [
+  { id:"eff-ask", icon:"🎯", label:"「効果的か？」と自分に問いかける", color:"#2D6A7F", bg:"#EAF4F8",
+    items:["怒りや敵意を感じ始めたとき、「これは効果的だろうか？」と自分に問いかける","「正しくありたい」という気持ちが出てきたとき、「効果的でありたい」という気持ちに切り替えられないか考えてみる","意固地になっている自分に気づいたとき、「これは効果的だろうか？」と自分に問いかける"] },
+  { id:"eff-goal", icon:"🧭", label:"目的をはっきりさせる", color:"#B07020", bg:"#FFF3E0",
+    items:["この状況で自分が本当に望んでいることは何か、書き出してみる","怒り・恐れ・恥ずかしさなどの感情が、自分の目標を見えにくくしていないか確認する"] },
+  { id:"eff-reality", icon:"🌍", label:"あるべき姿ではなく、今の状況に対応する", color:"#5A9E7A", bg:"#EEF7F2",
+    items:["「本来はこうあるべきだ」という考えに気づいたら、「実際には今どうなっているか」に注意を向け直す","相手の立場や考え方は自分とは違うかもしれないと考えてみる。「正しさ」を主張するより、相手がいる場所から始めてみる"] },
+  { id:"eff-means", icon:"✅", label:"効果的な手段を選ぶ", color:"#4A5BA8", bg:"#F0F4FF",
+    items:["怒鳴ったり騒いだりする代わりに、落ち着いて話すとどうなるか考えてみる","必要であれば、決められたルールに従って行動してみる（自分の立場が弱い状況では特に重要）","どうすればよいかわからないときは、人に相談したり、助けを求めたりする"] },
+];
+
+const effectiveChecked = new Set();
+
+function renderEffectiveDetail(sk) {
+  const html = `
+    <span class="category-badge cat-how">${sk.category}</span>
+    <h2 style="font-family:'Noto Serif JP',serif;font-size:24px;color:#1A3A45;margin:8px 0 4px;font-weight:700;">${sk.name}</h2>
+    <p style="color:#5A8A9F;font-size:14px;margin:0 0 14px;">${sk.subtitle}</p>
+    ${intensityHTML(sk.intensity)}
+    <div class="detail-tabs" style="margin-top:16px;">
+      <button class="detail-tab-btn active" id="dtab-skill" onclick="switchDetailTab('skill')">スキル解説</button>
+      <button class="detail-tab-btn" id="dtab-theory" onclick="switchDetailTab('theory')">理論・背景</button>
+      <button class="detail-tab-btn" id="dtab-practice" onclick="switchDetailTab('practice')">練習メニュー</button>
+    </div>
+
+    <!-- スキル解説タブ -->
+    <div class="detail-tab-content active" id="dtabcontent-skill">
+      <div class="detail-desc">${sk.description}</div>
+      <h3 class="detail-h3">練習の手順</h3>
+      <ol class="howto-list">${sk.howto.map(h=>`<li>${h}</li>`).join("")}</ol>
+      <div class="when-box"><span class="when-label">💡 こんなときに</span><span class="when-text">${sk.when}</span></div>
+    </div>
+
+    <!-- 理論・背景タブ -->
+    <div class="detail-tab-content" id="dtabcontent-theory">
+
+      <div class="theory-section">
+        <h4>「効果的に」とは何か</h4>
+        <p class="theory-text" style="margin-bottom:12px;">
+          効果的に行動するとは、目標を達成するために<strong>うまくいくこと</strong>をするということです。「間違ったこと」ではなく「正しいこと」をする、「不公平なこと」ではなく「公平なこと」をする——そこに焦点を当てるのではなく、実際にうまくいく行動そのものに焦点を当てます。
+        </p>
+        <div class="observe-contrast">
+          <div class="observe-contrast-card" style="background:#FBEEEF;border:1px solid #E0B0BA;">
+            <div style="font-size:11px;font-weight:700;color:#C16A7F;margin-bottom:6px;">正しさ・公平さにこだわる</div>
+            <div style="font-size:13px;color:#1A3A45;line-height:1.8;">「間違っている」を正したい<br>「不公平だ」を正したい<br>勢いで損をすることも</div>
+          </div>
+          <div class="observe-contrast-card" style="background:#EAF4F8;border:1px solid #B0CCD8;">
+            <div style="font-size:11px;font-weight:700;color:#2D6A7F;margin-bottom:6px;">効果的であること</div>
+            <div style="font-size:13px;color:#1A3A45;line-height:1.8;">目標達成に焦点を当てる<br>スキルフルな手段を使う<br>うまくいく行動を選ぶ</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="theory-section">
+        <h4>なぜ効果的に行動するのか</h4>
+        <div class="when-box" style="margin-top:4px;">
+          <span class="when-text">
+            電話で確かに予約を取ったはずなのに、宿泊先で「予約が入っていません」と言われたとします。担当者を怒鳴りつければ、その瞬間は気分がすっきりするかもしれません。<br><br>
+            けれど、本当に部屋を確保できたほうが——多少スキルフルな対応は必要でも——ずっと気分がいいはずです。
+          </span>
+        </div>
+        <p class="theory-text" style="margin-top:10px;">
+          正しいことを主張したり、言い分を証明したりすると、その瞬間は気分が良いかもしれません。けれど長い目で見れば、人生で本当に望むものを手に入れるほうが、満足度は高くなります。
+        </p>
+      </div>
+
+      <div class="theory-section">
+        <h4>効果的に行動する方法</h4>
+        <p class="theory-text" style="margin-bottom:8px;"><strong>① 目的や目標を知る。</strong>自分が何を望んでいるのかがわからなければ、効果的であることは難しくなります。怒りや恐れなどの感情に阻まれると、自分の望みを見極めにくくなります。</p>
+        <p class="theory-text" style="margin-bottom:8px;"><strong>② あるべき姿ではなく、実際の状況に対応する。</strong>「本来はこうあるべきだ」にとらわれると、現実がその通りに動かないことに苛立ち続けることになります。</p>
+        <p class="theory-text" style="margin-bottom:8px;"><strong>③ 目標達成に役立つことを知る。</strong>落ち着いて選択肢を考えれば、何が効果的で何がそうでないかは見えてくるものです。必要であれば人に相談したり、助けを求めたりすることも効果的な手段のひとつです。</p>
+        <p class="theory-text"><strong>④ 必要であれば「ルールに従う」。</strong>自分の立場が弱く、望むものが重要である状況ほど、ルールに従って行動することが助けになる場合があります。</p>
+      </div>
+
+      <div class="theory-section">
+        <h4>人々についてよく知る</h4>
+        <p class="theory-text">
+          効果的であるとは、しばしば相手や状況に精通しているということでもあります。人はそれぞれ違う文化を持っているようなものです。ある場面でうまくいくやり方が、別の場面ではうまくいかないこともあります。相手が「いるべき」場所ではなく、相手が実際に「いる」場所から始めることが、効果的であることにつながります。
+        </p>
+      </div>
+
+    </div>
+
+    <!-- 練習メニュータブ -->
+    <div class="detail-tab-content" id="dtabcontent-practice">
+      <p style="font-size:13px;color:#6A8A96;margin-bottom:4px;line-height:1.7;">カテゴリをタップして練習を選びましょう。</p>
+      <p style="font-size:11px;color:#9AABBC;margin-bottom:14px;">複数選択できます</p>
+      <div id="effective-accordion"></div>
+      <button class="practice-save-btn" id="effective-save-btn" onclick="saveEffectivePractice()">今日の練習を記録する</button>
+      <div id="effective-save-msg" style="display:none;text-align:center;margin-top:10px;font-size:13px;color:#5AA87A;font-weight:600;">✓ 記録しました</div>
+    </div>
+  `;
+
+  document.getElementById("detail-body").innerHTML = html;
+  renderEffectiveAccordion();
+}
+
+function renderEffectiveAccordion() {
+  const el = document.getElementById("effective-accordion");
+  if (!el) return;
+  el.innerHTML = effectivePracticeCategories.map(cat => `
+    <div class="accordion-item">
+      <button class="accordion-header" id="acc-btn-${cat.id}" onclick="toggleAccordion('${cat.id}')">
+        <span class="accordion-icon">${cat.icon}</span>
+        <span class="accordion-title">${cat.label}</span>
+        <span style="font-size:11px;color:#9AABBC;margin-right:6px;">${effectiveChecked.has(cat.id) ? '✓ 選択中' : ''}</span>
+        <span class="accordion-arrow">▼</span>
+      </button>
+      <div class="accordion-body" id="acc-body-${cat.id}">
+        <div class="accordion-desc">以下の練習から試してみましょう：</div>
+        ${cat.items.map((item, i) => `
+          <div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;">
+            <div onclick="toggleEffectiveItem('${cat.id}-${i}')" style="width:20px;height:20px;border-radius:5px;border:2px solid ${cat.color}44;background:${effectiveChecked.has(cat.id+'-'+i)?cat.color:'#fff'};color:#fff;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:1px;transition:all 0.15s;">
+              ${effectiveChecked.has(cat.id+'-'+i)?'✓':''}
+            </div>
+            <span style="font-size:13px;color:#2A4A55;line-height:1.7;">${item}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleEffectiveItem(key) {
+  if (effectiveChecked.has(key)) effectiveChecked.delete(key);
+  else effectiveChecked.add(key);
+  renderEffectiveAccordion();
+  const catId = key.split('-').slice(0, -1).join('-');
+  const body = document.getElementById(`acc-body-${catId}`);
+  const btn = document.getElementById(`acc-btn-${catId}`);
+  if (body) body.classList.add('open');
+  if (btn) btn.classList.add('open');
+}
+
+function saveEffectivePractice() {
+  if (effectiveChecked.size === 0) return;
+  const today = new Date().toISOString().slice(0, 10);
+  const recs = loadRecords();
+  const idx = recs.findIndex(r => r.date === today);
+  const entry = idx >= 0 ? recs[idx] : { date: today, emotionScores: {}, urgeScore: 0, skillsUsed: [], note: "" };
+  entry.effectivePractices = [...effectiveChecked];
+  if (!entry.skillsUsed.includes("effectively")) entry.skillsUsed.push("effectively");
+  if (idx >= 0) recs[idx] = entry; else recs.unshift(entry);
+  saveRecords(recs);
+  const msg = document.getElementById("effective-save-msg");
+  if (msg) { msg.style.display = "block"; setTimeout(() => msg.style.display = "none", 2500); }
+}
+
 // ── スキル詳細 ────────────────────────────────────────────────
 function showDetail(id){
   const sk=SKILLS.find(s=>s.id===id); if(!sk)return;
   document.getElementById("detail-back").onclick=()=>hideDetail();
-  document.getElementById("detail-body").innerHTML=`<span class="category-badge ${catClass(sk.category)}">${sk.category}</span><h2 style="font-family:'Noto Serif JP',serif;font-size:26px;color:#1A3A45;margin:8px 0 4px;font-weight:700;">${sk.name}</h2><p style="color:#5A8A9F;font-size:14px;margin:0 0 16px;">${sk.subtitle}</p>${intensityHTML(sk.intensity)}<div class="detail-desc">${sk.description}</div><h3 class="detail-h3">練習の手順</h3><ol class="howto-list">${sk.howto.map(h=>`<li>${h}</li>`).join("")}</ol><div class="when-box"><span class="when-label">💡 こんなときに</span><span class="when-text">${sk.when}</span></div>`;
+
+  if (sk.id === "wise-mind") {
+    renderWiseMindDetail(sk);
+  } else if (sk.id === "observe") {
+    renderObserveDetail(sk);
+  } else if (sk.id === "describe") {
+    renderDescribeDetail(sk);
+  } else if (sk.id === "participate") {
+    renderParticipateDetail(sk);
+  } else if (sk.id === "nonjudgmental") {
+    renderNonjudgeDetail(sk);
+  } else if (sk.id === "one-mindfully") {
+    renderOneMindfulDetail(sk);
+  } else if (sk.id === "effectively") {
+    renderEffectiveDetail(sk);
+  } else {
+    document.getElementById("detail-body").innerHTML=`<span class="category-badge ${catClass(sk.category)}">${sk.category}</span><h2 style="font-family:'Noto Serif JP',serif;font-size:26px;color:#1A3A45;margin:8px 0 4px;font-weight:700;">${sk.name}</h2><p style="color:#5A8A9F;font-size:14px;margin:0 0 16px;">${sk.subtitle}</p>${intensityHTML(sk.intensity)}<div class="detail-desc">${sk.description}</div><h3 class="detail-h3">練習の手順</h3><ol class="howto-list">${sk.howto.map(h=>`<li>${h}</li>`).join("")}</ol><div class="when-box"><span class="when-label">💡 こんなときに</span><span class="when-text">${sk.when}</span></div>`;
+  }
+
   document.querySelectorAll('.page,#ws-detail').forEach(p=>p.classList.remove('active'));
   document.getElementById("detail-view").classList.add("active");
 }
